@@ -1,89 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".ui.addStudent.AddStudentPage">
+
+<com.google.android.material.appbar.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/formsList">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-            <EditText
-                android:id="@+id/nom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_nom"
-                android:inputType="textAutoComplete"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp" />
-            <EditText
-                android:id="@+id/prenom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_prenom"
-                android:inputType="textAutoComplete"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp" />
-            <EditText
-                android:id="@+id/dateNaissance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_dateNaissance"
-                android:inputType="date"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp" />
-            <EditText
-                android:id="@+id/tel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_tel"
-                android:inputType="phone"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp" />
-            <EditText
-                android:id="@+id/email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_email"
-                android:inputType="textEmailAddress"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp"
-                />
-            <EditText
-                android:id="@+id/adresse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="@dimen/min_height"
-                android:fontFamily="sans-serif-light"
-                android:hint="@string/hint_adresse"
-                android:inputType="text"
-                android:layout_margin="@dimen/big_padding"
-                android:textSize="18sp" />
-        </LinearLayout>
-    </ScrollView>
-    <Button
-        android:id="@+id/button_save"
-        android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/Theme.SchoolApp.AppBarOverlay">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="@string/button_save"
-        android:layout_margin="@dimen/big_padding"
-        android:textColor="@color/buttonLabel"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:minHeight="?actionBarSize"
+        android:padding="@dimen/appbar_padding"
+        android:text="Student"
+        android:textAppearance="@style/TextAppearance.Widget.AppCompat.Toolbar.Title" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="0dp"
+        android:layout_height="0dp" />
+</com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/formsList">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/nom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_nom"
+                    android:inputType="textAutoComplete"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/prenom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_prenom"
+                    android:inputType="textAutoComplete"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/dateNaissance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_dateNaissance"
+                    android:inputType="date"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_tel"
+                    android:inputType="phone"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp" />
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp"
+                    />
+                <EditText
+                    android:id="@+id/adresse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/min_height"
+                    android:fontFamily="sans-serif-light"
+                    android:hint="@string/hint_adresse"
+                    android:inputType="text"
+                    android:layout_margin="@dimen/big_padding"
+                    android:textSize="18sp" />
+            </LinearLayout>
+        </ScrollView>
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/button_save"
+            android:layout_margin="@dimen/big_padding"
+            android:textColor="@color/buttonLabel"
+            android:gravity="center"/>
 
 
 
-</LinearLayout>
+    </LinearLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

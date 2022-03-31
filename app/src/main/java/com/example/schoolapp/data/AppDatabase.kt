@@ -9,11 +9,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [Classe::class, Student::class], version = 3, exportSchema = false)
+@Database(entities = [Classe::class, Student::class, ClassRoom_Student::class], version = 4, exportSchema = false)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun classeDao(): ClasseDao
     abstract fun studentDao(): StudentDao
+    abstract fun ClassRoomStudentDao(): ClassRoom_Student_Dao
     private class WordDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {

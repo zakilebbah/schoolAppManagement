@@ -22,8 +22,11 @@ class StudentsViewModel(private val repository: StudentRepository) : ViewModel()
     fun insert(student: Student) = viewModelScope.launch {
         repository.insert(student)
     }
-    fun classById(sid : Int): Student {
+    fun studentById(sid : Int): Student {
         return repository.getStudent(sid)
+    }
+    fun update(student: Student) = viewModelScope.launch {
+        repository.updateStudent(student)
     }
 }
 class StudentsViewModelFactory(private val repository: StudentRepository) : ViewModelProvider.Factory {

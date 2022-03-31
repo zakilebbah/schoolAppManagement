@@ -17,7 +17,7 @@ interface ClasseDao {
 
     @Insert
     fun insertClass(classe: Classe)
-    @Update(entity = Classe::class)
+    @Update
     fun update(classe: Classe)
     @Delete
     fun delete(classe: Classe)

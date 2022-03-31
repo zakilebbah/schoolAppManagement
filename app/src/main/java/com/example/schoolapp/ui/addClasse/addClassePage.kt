@@ -32,7 +32,7 @@ class AddClassePage : AppCompatActivity() {
         grade = findViewById(R.id.grade)
         date = findViewById(R.id.date)
         id = intent.getIntExtra("id", -1)
-
+        Log.d("DZDZDZD", id.toString())
         val button = findViewById<Button>(R.id.button_save)
         if (id == -1) {
             button.text = "Save"

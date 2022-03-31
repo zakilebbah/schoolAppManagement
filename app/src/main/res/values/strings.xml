@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SchoolApp</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">Classes</string>
+    <string name="title_dashboard">Students</string>
+    <string name="title_notifications">Page</string>
     <string name="add_word">Add Class Room</string>
     <string name="add_student">Add Student</string>
     <string name="title_activity_add_classe">AddCLasse</string>
@@ -25,5 +25,10 @@
     <string name="hint_email">Email</string>
     <string name="hint_adresse">Adresse</string>
     <string name="hint_dateNaissance">Date de naissance</string>
+    <string name="title_activity_classe_page">ClassePage</string>
+    <string name="tab_text_1">Class</string>
+    <string name="tab_text_2">Students</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

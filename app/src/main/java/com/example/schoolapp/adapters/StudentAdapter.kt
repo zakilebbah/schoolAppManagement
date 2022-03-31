@@ -11,28 +11,29 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.R
-import com.example.schoolapp.data.Classe
 import com.example.schoolapp.data.Student
-import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 
-class StudentAdapter: ListAdapter<Student, StudentAdapter.StudentViewHolder>(StudentComparator()) {
+class StudentAdapter(private val onClickListener: OnClickListener): ListAdapter<Student, StudentAdapter.StudentViewHolder>(StudentComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentAdapter.StudentViewHolder {
         return StudentAdapter.StudentViewHolder.create(parent)
     }
 
-    override fun onBindViewHolder(holder: StudentAdapter.StudentViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: StudentViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current)
+        holder.bind(current, onClickListener)
     }
-
+    class OnClickListener(val clickListener: (student: Student) -> Unit) {
+        fun onClick(student: Student) = clickListener(student)
+    }
     class StudentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
         private val card: CardView = itemView.findViewById(R.id.card)
-        fun bind(student: Student?) {
+        fun bind(student: Student?, onClickListener: OnClickListener) {
             wordItemView.text = student!!.name + " " + student!!.prenom
             card.setOnClickListener { view ->
-                goToStudent(student.sid, view)
+//                goToStudent(student.sid, view)
+                onClickListener.onClick(student)
             }
         }
 

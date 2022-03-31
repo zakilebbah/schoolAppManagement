@@ -11,6 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolApp">
         <activity
+            android:name=".ui.addClasse.StudentsList"
+            android:exported="false" />
+        <activity
+            android:name=".ui.addClasse.ClassePage"
+            android:exported="false"
+            android:label="@string/title_activity_classe_page"
+            android:theme="@style/Theme.SchoolApp.NoActionBar" />
+        <activity
             android:name=".ui.addStudent.AddStudentPage"
             android:exported="false" />
         <activity

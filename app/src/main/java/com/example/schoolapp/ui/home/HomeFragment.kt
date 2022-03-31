@@ -18,6 +18,7 @@ import com.example.schoolapp.adapters.ClasseAdapter
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.databinding.FragmentHomeBinding
 import com.example.schoolapp.ui.addClasse.AddClassePage
+import com.example.schoolapp.ui.addClasse.ClassePage
 import com.example.schoolapp.viewModels.ClasseViewModel
 import com.example.schoolapp.viewModels.WordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -49,7 +50,10 @@ class HomeFragment : Fragment() {
 //            textView.text = it
 //        })
         val recyclerView: RecyclerView = binding.recyclerview
-        val adapter = ClasseAdapter()
+        val adapter = ClasseAdapter(ClasseAdapter.OnClickListener { classe ->
+            val intent = Intent(context, ClassePage::class.java)
+            intent.putExtra("id", classe.cid)
+            startActivityForResult(intent, newClasseActivityRequestCode)})
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         classeViewModel.allWords.observe(this) { classes ->
@@ -58,7 +62,8 @@ class HomeFragment : Fragment() {
         }
         val fab =binding.fab
         fab.setOnClickListener {
-            val intent = Intent(context, AddClassePage::class.java)
+            val intent = Intent(context, ClassePage::class.java)
+            intent.putExtra("id",-1)
             startActivityForResult(intent, newClasseActivityRequestCode)
         }
         return root
@@ -68,7 +73,6 @@ class HomeFragment : Fragment() {
 
         if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringArrayListExtra(AddClassePage.EXTRA_REPLY)?.let { reply ->
-                Log.d("DZDZDZD", reply[0])
                 if (reply[0].toInt() == -1) {
                     var classe0 = Classe(0, reply[1], reply[2], reply[3])
                     classeViewModel.insert(classe0)

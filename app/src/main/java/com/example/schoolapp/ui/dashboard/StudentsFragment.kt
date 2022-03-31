@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
+import com.example.schoolapp.adapters.ClasseAdapter
 import com.example.schoolapp.adapters.StudentAdapter
 import com.example.schoolapp.data.Student
 import com.example.schoolapp.databinding.FragmentStudentsBinding
+import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 
 
@@ -40,7 +42,10 @@ class StudentsFragment : Fragment() {
         val root: View = binding.root
 
         val recyclerView: RecyclerView = binding.recyclerview
-        val adapter = StudentAdapter()
+        val adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
+            val intent = Intent(context, AddStudentPage::class.java)
+            intent.putExtra("id", student.sid)
+            startActivityForResult(intent, newStudentActivityRequestCode)})
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         studentsViewModel.allWords.observe(this) { students ->
@@ -60,8 +65,15 @@ class StudentsFragment : Fragment() {
 
         if (requestCode == newStudentActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
-                val student0 = Student(0, reply[0], reply[1], reply[2], reply[3], reply[4], reply[5], reply[6])
-                studentsViewModel.insert(student0)
+                if (reply[0].toInt() == -1) {
+                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7])
+                    studentsViewModel.insert(student0)
+                }
+                else {
+                    val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7])
+                    studentsViewModel.update(student0)
+                }
+
             }
         } else {
             Toast.makeText(

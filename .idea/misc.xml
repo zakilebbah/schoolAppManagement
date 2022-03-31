@@ -5,11 +5,16 @@
       <map>
         <entry key="app/src/main/res/layout/activity_add_classe_page.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_add_student_page.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/activity_classe_page.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/activity_students_list.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/card_view_design.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_classe_page.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_classe_students.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.35572916666666665" />
       </map>
