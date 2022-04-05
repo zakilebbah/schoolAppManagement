@@ -1,10 +1,7 @@
 package com.example.schoolapp
 
 import android.app.Application
-import com.example.schoolapp.data.AppDatabase
-import com.example.schoolapp.data.ClassRoom_Student_Repository
-import com.example.schoolapp.data.ClasseRepository
-import com.example.schoolapp.data.StudentRepository
+import com.example.schoolapp.data.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
@@ -16,4 +13,5 @@ class MainApp : Application() {
     val repositoryClasse by lazy { ClasseRepository(database.classeDao()) }
     val repositoryStudent by lazy { StudentRepository(database.studentDao()) }
     val repositoryClasseStudent by lazy { ClassRoom_Student_Repository(database.ClassRoomStudentDao()) }
+    val repositoryAttendance by lazy { AttendanceRepository(database.AttendanceDao()) }
 }

@@ -1,19 +1,17 @@
 package com.example.schoolapp.ui.addClasse
 
-import android.app.Activity
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
-import com.example.schoolapp.adapters.StudentAdapter
+import com.example.schoolapp.adapters.AddStudentToClasseAdapter
 import com.example.schoolapp.data.ClassRoom_Student
 import com.example.schoolapp.data.Student
-import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.ui.dashboard.StudentsViewModel
 import com.example.schoolapp.ui.dashboard.StudentsViewModelFactory
 import com.example.schoolapp.viewModels.ClasseStudentModelFactory
@@ -31,16 +29,26 @@ class StudentsList() : AppCompatActivity() {
         setContentView(R.layout.activity_students_list)
         var cid: Int = intent.getIntExtra("cid", -1)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
-        val adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
-            val replyIntent = Intent()
-            val array0 =  ArrayList<Int>()
-            array0.add(0)
-            array0.add(cid)
-            array0.add(student.sid)
-            replyIntent.putExtra(AddClassePage.EXTRA_REPLY, array0)
-            setResult(Activity.RESULT_OK, replyIntent)
-            finish()
-        })
+        val adapter = AddStudentToClasseAdapter(AddStudentToClasseAdapter.OnClickListener { student, type ->
+            if (type == 0) {
+                if (classeStudentsViewModel.loadCidSid(cid, student.sid) == null) {
+                    classeStudentsViewModel.insert(ClassRoom_Student(0, cid, student.sid, 0))
+                }
+                else {
+                    Toast.makeText(
+                this,
+                "Student exists in class room",
+                Toast.LENGTH_LONG
+            ).show()
+                }
+            }
+
+            else {
+                classeStudentsViewModel.deleteByCidSid(cid, student.sid)
+            }
+
+        }, classeStudentsViewModel, cid)
+        setTitle("Students")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         studentsViewModel.allWords.observe(this) { students ->
@@ -49,7 +57,7 @@ class StudentsList() : AppCompatActivity() {
         }
     }
     fun addStudentToClasse(student0: Student, cid: Int) {
-        classeStudentsViewModel.insert(ClassRoom_Student(0, student0.sid, cid))
+        classeStudentsViewModel.insert(ClassRoom_Student(0, student0.sid, cid, 0))
         finish()
     }
     companion object {

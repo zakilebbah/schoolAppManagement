@@ -10,7 +10,7 @@ interface ClassRoom_Student_Dao {
     fun getAll(): List<ClassRoom_Student>
 
     @Query("SELECT * FROM ClassRoom_Student WHERE class_room_id==:class_room_id0 and student_id==:student_id0")
-    fun loadId(class_room_id0: Int,student_id0: Int ): List<ClassRoom_Student>
+    fun loadCidSid(class_room_id0: Int,student_id0: Int ): ClassRoom_Student
 
     @Insert
     fun insert(classRoom_Student: ClassRoom_Student)
@@ -21,4 +21,8 @@ interface ClassRoom_Student_Dao {
     @Transaction
     @Query("SELECT * FROM ClassRoom_Student where class_room_id == :id")
     fun getClassWithStudents(id: Int): LiveData<List<StudentWithclass>>
+    @Update
+    fun update(classRoom_Student: ClassRoom_Student)
+    @Query("DELETE FROM ClassRoom_Student WHERE  class_room_id==:class_room_id0 and student_id==:student_id0")
+    fun deleteByCidSid(class_room_id0: Int,student_id0: Int)
 }

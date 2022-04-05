@@ -80,10 +80,10 @@ class PlaceholderFragment(_id0: Int) : Fragment() {
     }
     private fun initClassRoom() {
         if (id0 != -1) {
-            var  classe: Classe = classeViewModel.classById(id0)
-            name.setText(classe.name.toString())
-            grade.setText(classe.grade.toString())
-            date.setText(classe.date.toString())
+//            var  classe: Classe = classeViewModel.classById(id0)
+//            name.setText(classe.name.toString())
+//            grade.setText(classe.grade.toString())
+//            date.setText(classe.date.toString())
 
         }
     }

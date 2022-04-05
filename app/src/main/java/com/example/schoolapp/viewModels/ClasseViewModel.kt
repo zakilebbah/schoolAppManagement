@@ -3,6 +3,7 @@ package com.example.schoolapp.viewModels
 import androidx.lifecycle.*
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.data.ClasseRepository
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 
@@ -24,9 +25,13 @@ class ClasseViewModel(private val repository: ClasseRepository) : ViewModel() {
         repository.updateClasse(classe)
     }
 
-    fun classById(cid : Int): Classe {
+    fun classById(cid : Int): LiveData<Classe> {
         return repository.getClasse(cid)
     }
+    fun deleteById(cid : Int){
+        return repository.deleteClasse(cid)
+    }
+
 }
 
 class WordViewModelFactory(private val repository: ClasseRepository) : ViewModelProvider.Factory {

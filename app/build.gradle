@@ -12,7 +12,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.schoolapp"
-        minSdk 21
+        minSdk 26
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -45,6 +45,7 @@ android {
 //}
 dependencies {
 
+    implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

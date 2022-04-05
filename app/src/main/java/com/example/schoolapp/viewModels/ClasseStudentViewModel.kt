@@ -20,9 +20,17 @@ class ClasseStudentViewModel(private val repository: ClassRoom_Student_Repositor
     fun insert(classe: ClassRoom_Student) = viewModelScope.launch {
         repository.insert(classe)
     }
-//    fun update(classe: ClassRoom_Student) = viewModelScope.launch {
-//        repository.updateClasse(classe)
-//    }
+    fun update(classe: ClassRoom_Student) = viewModelScope.launch {
+        repository.update(classe)
+    }
+    fun deleteByCidSid(class_room_id0: Int,student_id0: Int) = viewModelScope.launch {
+        repository.deleteByCidSid(class_room_id0, student_id0)
+    }
+    fun loadCidSid(cid: Int, sid: Int):ClassRoom_Student  {
+        return repository.loadCidSid(cid, sid)
+    }
+
+
 
 //    fun classById(cid : Int): Classe {
 //        return repository.getClasse(cid)

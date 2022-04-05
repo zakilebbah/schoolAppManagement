@@ -2,6 +2,7 @@ package com.example.schoolapp.data
 
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 
@@ -12,8 +13,9 @@ import kotlinx.coroutines.flow.Flow
  * query execution off of the main thread.
  */
 class ClasseRepository(private val classeDao: ClasseDao) {
+
     @WorkerThread
-    fun getClasse(cid: Int) = classeDao.loadById(cid)
+    fun getClasse(cid: Int): LiveData<Classe> = classeDao.loadById(cid)
     val allClasses: Flow<List<Classe>> = classeDao.getAll()
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
@@ -23,6 +25,10 @@ class ClasseRepository(private val classeDao: ClasseDao) {
     @WorkerThread
     fun updateClasse(classe: Classe) {
         classeDao.update(classe)
+    }
+    @WorkerThread
+    fun deleteClasse(cid: Int) {
+        classeDao.deleteById(cid)
     }
 //    fun getPlant(plantId: String) = plantDao.getPlant(plantId)
 //

@@ -75,13 +75,14 @@ class StudentsFragment : Fragment() {
                 }
 
             }
-        } else {
-            Toast.makeText(
-                context,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG
-            ).show()
         }
+//        else {
+//            Toast.makeText(
+//                context,
+//                R.string.empty_not_saved,
+//                Toast.LENGTH_LONG
+//            ).show()
+//        }
     }
     override fun onDestroyView() {
         super.onDestroyView()

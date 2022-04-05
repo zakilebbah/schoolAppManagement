@@ -19,6 +19,7 @@ import com.example.schoolapp.data.Classe
 import com.example.schoolapp.databinding.FragmentHomeBinding
 import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.addClasse.ClassePage
+import com.example.schoolapp.ui.classePage.MainClassePage
 import com.example.schoolapp.viewModels.ClasseViewModel
 import com.example.schoolapp.viewModels.WordViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -51,7 +52,7 @@ class HomeFragment : Fragment() {
 //        })
         val recyclerView: RecyclerView = binding.recyclerview
         val adapter = ClasseAdapter(ClasseAdapter.OnClickListener { classe ->
-            val intent = Intent(context, ClassePage::class.java)
+            val intent = Intent(context, MainClassePage::class.java)
             intent.putExtra("id", classe.cid)
             startActivityForResult(intent, newClasseActivityRequestCode)})
         recyclerView.adapter = adapter
@@ -62,7 +63,7 @@ class HomeFragment : Fragment() {
         }
         val fab =binding.fab
         fab.setOnClickListener {
-            val intent = Intent(context, ClassePage::class.java)
+            val intent = Intent(context, AddClassePage::class.java)
             intent.putExtra("id",-1)
             startActivityForResult(intent, newClasseActivityRequestCode)
         }
@@ -70,7 +71,7 @@ class HomeFragment : Fragment() {
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
-
+        Log.d("DELETE DELETE", resultCode.toString())
         if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringArrayListExtra(AddClassePage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
@@ -84,12 +85,14 @@ class HomeFragment : Fragment() {
                 }
 
             }
-        } else {
-            Toast.makeText(
-                context,
-                R.string.empty_not_saved,
-                Toast.LENGTH_LONG
-            ).show()
+        } else if (requestCode == newClasseActivityRequestCode && resultCode == -10){
+            Log.d("DELETE DELETE", "FDZZZZZZZZZZZZZZZZZZZZZ")
+            intentData?.getIntExtra(AddClassePage.EXTRA_REPLY, -1)?.let {reply ->
+                classeViewModel.deleteById(reply)
+            }
+        }
+        else {
+            null
         }
     }
     override fun onDestroyView() {

@@ -14,6 +14,18 @@ class ClassRoom_Student_Repository(private val StudentClasseDao: ClassRoom_Stude
     suspend fun insert(classRoom_Student: ClassRoom_Student) {
         StudentClasseDao.insert(classRoom_Student)
     }
+    @WorkerThread
+    suspend fun update(classRoom_Student: ClassRoom_Student) {
+        StudentClasseDao.update(classRoom_Student)
+    }
+    @WorkerThread
+    suspend fun deleteByCidSid(class_room_id0: Int,student_id0: Int) {
+        StudentClasseDao.deleteByCidSid(class_room_id0, student_id0)
+    }
+    @WorkerThread
+    fun loadCidSid(cid: Int, sid: Int):ClassRoom_Student  {
+        return StudentClasseDao.loadCidSid(cid, sid)
+    }
 
 
 //    @WorkerThread

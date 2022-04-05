@@ -11,6 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolApp">
         <activity
+            android:name=".ui.classePage.MainClassePage"
+            android:exported="false"
+            android:label="Classe"/>
+        <activity
             android:name=".ui.addClasse.StudentsList"
             android:exported="false" />
         <activity

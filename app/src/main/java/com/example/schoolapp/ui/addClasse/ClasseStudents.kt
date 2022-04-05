@@ -95,7 +95,7 @@ class ClasseStudents(_id: Int) : Fragment() {
         if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getIntArrayExtra(StudentsList.EXTRA_REPLY)?.let { reply ->
                 if (reply[0] != null) {
-                    var classeWithStudent = ClassRoom_Student(reply[0], reply[1], reply[2])
+                    var classeWithStudent = ClassRoom_Student(reply[0], reply[1], reply[2], reply[3])
                     classeStudentsViewModel.insert(classeWithStudent)
                 }
 
