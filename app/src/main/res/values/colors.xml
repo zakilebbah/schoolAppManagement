@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="buttonLabel">#FFFFFF</color>
     <color name="colorPrimary">#0967F1</color>
+
+    <color name="bg_dark">#1B1717</color>
+    <color name="blueDark">#1A192B</color>
 </resources>

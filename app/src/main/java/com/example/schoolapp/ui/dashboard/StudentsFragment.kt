@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 
@@ -25,11 +26,13 @@ import com.example.schoolapp.ui.addStudent.AddStudentPage
 class StudentsFragment : Fragment() {
     private val newStudentActivityRequestCode = 1
     private var _binding: FragmentStudentsBinding? = null
+
     private val studentsViewModel: StudentsViewModel by viewModels {
         StudentsViewModelFactory((activity?.application as MainApp).repositoryStudent)
     }
     // This property is only valid between onCreateView and
     // onDestroyView.
+
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -38,8 +41,10 @@ class StudentsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
         _binding = FragmentStudentsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
 
         val recyclerView: RecyclerView = binding.recyclerview
         val adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->

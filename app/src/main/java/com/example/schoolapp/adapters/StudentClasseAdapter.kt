@@ -1,5 +1,6 @@
 package com.example.schoolapp.adapters
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
@@ -43,7 +45,9 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
     class StudentClasseViewHolder(itemView: View, ) : RecyclerView.ViewHolder(itemView) {
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
         private val card: CardView = itemView.findViewById(R.id.card)
-        private val button: ImageButton = itemView.findViewById(R.id.person)
+        private val button: ImageView = itemView.findViewById(R.id.person)
+
+
         fun bind(student: StudentWithclass?, onClickListener: OnClickListener, classeViewModel0: AttendanceViewModel, date0: String) {
             wordItemView.text = student!!.student.name + " " + student!!.student.prenom
             card.setOnClickListener { view ->
@@ -52,29 +56,34 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
             }
             var attendance: Attendance = classeViewModel0.searchByDate(date0, student!!.student.sid, student!!.classRoom_Student.class_room_id)
             if (attendance != null && attendance.status == 0) {
-                button.setBackgroundColor(Color.RED)
+              //  button.setBackgroundColor(Color.RED)
+                button.setImageResource(R.drawable.ic_baseline_person_red_24)
 //                student.classRoom_Student.attendance = 1
             }
             else if (attendance != null && attendance.status == 1) {
-                button.setBackgroundColor(Color.GREEN)
+               // button.setBackgroundColor(Color.GREEN)
+                button.setImageResource(R.drawable.ic_baseline_person_green_24)
             }
             button.setOnClickListener { view ->
                 if (attendance == null) {
-                    button.setBackgroundColor(Color.RED)
+                   // button.setBackgroundColor(Color.RED)
+                    button.setImageResource(R.drawable.ic_baseline_person_red_24)
                     classeViewModel0.insert(Attendance(0, student.classRoom_Student.student_id,
                         student.classRoom_Student.class_room_id, 0, date0))
                     attendance = classeViewModel0.searchByDate(date0, student!!.student.sid, student!!.classRoom_Student.class_room_id)
 
                 }
                 else if (attendance.status == 0) {
-                    button.setBackgroundColor(Color.GREEN)
+                  //  button.setBackgroundColor(Color.GREEN)
+                    button.setImageResource(R.drawable.ic_baseline_person_green_24)
                     classeViewModel0.update(Attendance(attendance.aid, student.classRoom_Student.student_id,
                         student.classRoom_Student.class_room_id, 1, date0))
                     attendance = Attendance(attendance.aid, student.classRoom_Student.student_id,
                         student.classRoom_Student.class_room_id, 1, date0)
                 }
                 else if (attendance.status == 1) {
-                    button.setBackgroundColor(Color.RED)
+                   // button.setBackgroundColor(Color.RED)
+                    button.setImageResource(R.drawable.ic_baseline_person_red_24)
                     classeViewModel0.update(Attendance(attendance.aid, student.classRoom_Student.student_id,
                         student.classRoom_Student.class_room_id, 0, date0))
                     attendance = Attendance(attendance.aid, student.classRoom_Student.student_id,

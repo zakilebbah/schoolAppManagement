@@ -47,6 +47,10 @@ class AddStudentPage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStudentPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setTitle("Student details")
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", -1)
         linear_layout = findViewById(R.id.formsList)
         nom = findViewById(R.id.nom)
@@ -60,6 +64,10 @@ class AddStudentPage : AppCompatActivity() {
         button.setOnClickListener {
             saveStudent()
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     @SuppressLint("SimpleDateFormat")
     fun  saveStudent() {

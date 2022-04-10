@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+   android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/toolbar"
+android:layout_width="match_parent"
+android:layout_height="?attr/actionBarSize"
+
+android:layout_margin="5dp"
+app:layout_constraintEnd_toEndOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintTop_toTopOf="parent"
+    android:elevation="8dp"
+    android:background="@color/black">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="6dp"
+    android:layout_margin="2dp">
+
+    <EditText
+        android:id="@+id/editsearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#EFF3F4"
+        android:padding="10dp"
+        android:shadowColor="@color/black"
+        android:shadowRadius="@integer/material_motion_duration_long_2"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        tools:text="Rich" />
+    <ImageView
+        android:id="@+id/ic_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_search"
+        app:tint="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dp"
+        />
+
+
+</RelativeLayout>
+
+
+</LinearLayout>
+

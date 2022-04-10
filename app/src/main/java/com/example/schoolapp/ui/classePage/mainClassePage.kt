@@ -31,6 +31,7 @@ import com.example.schoolapp.ui.addClasse.StudentsList
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import org.w3c.dom.Text
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.time.LocalDate
@@ -54,6 +55,9 @@ class MainClassePage : AppCompatActivity() {
     }
     private var dateView: TextView? = null
     private var recyclerView: RecyclerView? = null
+    private var nameClasse : TextView? = null
+    private var gradeClass : TextView? = null
+    private var nbrEtudiant : TextView? = null
     var cal = Calendar.getInstance()
     private fun updateDateInView() {
         val myFormat = "dd/MM/yyyy" // mention the format you need
@@ -63,10 +67,15 @@ class MainClassePage : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_classe_page)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
 
-        setTitle("RRRRRR")
+
+        setTitle("Classe")
         var id: Int = intent.getIntExtra("id", -1)
-
+        nameClasse= findViewById(R.id.nameClass)
+        gradeClass = findViewById(R.id.gradeClass)
         recyclerView = findViewById(R.id.recyclerview)
         dateView = findViewById(R.id.date)
         val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -106,11 +115,15 @@ class MainClassePage : AppCompatActivity() {
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
         classeStudentsViewModel.allStudents(id).observe(this) { classeStudents ->
+            nbrEtudiant = findViewById(R.id.nbretudiant)
+            nbrEtudiant?.text = classeStudents.size.toString()
             classeStudents.let { adapter.submitList(classeStudents) }
         }
-        classeViewModel.classById(id).observe(this) { classe ->
-            if (classe != null) setTitle(classe.name)
 
+        classeViewModel.classById(id).observe(this) { classe ->
+            if (classe != null)
+            nameClasse?.text = classe.name
+            gradeClass?.text=classe.grade
         }
         var fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
@@ -119,6 +132,11 @@ class MainClassePage : AppCompatActivity() {
             intent.putExtra("cid",id)
             startActivityForResult(intent, classeActivityRequestCode)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     fun rebuildRecycle(id0: Int) {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
@@ -178,13 +196,13 @@ class MainClassePage : AppCompatActivity() {
                 if (reply[0].toInt() == -1) {
                     var classe0 = Classe(0, reply[1], reply[2], reply[3])
                     classeViewModel.insert(classe0)
-                    setTitle(classe0.name)
+
                 }
                 else {
 
                     var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3])
                     classeViewModel.update(classe0)
-                    setTitle(classe0.name)
+
                 }
 
             }

@@ -4,11 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_two"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Classe detail"/>
+        android:icon="@drawable/ic_baseline_edit_24"
+        android:title="Classe detail"
+        app:showAsAction="always"/>
     <item
         android:id="@+id/action_three"
-        android:icon="@drawable/ic_baseline_more_vert_24"
-        android:title="Delete classe"/>
+        android:icon="@drawable/ic_baseline_delete_24"
+        android:title="Delete classe"
+        app:showAsAction="always"/>
 
 </menu>

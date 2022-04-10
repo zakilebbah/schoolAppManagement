@@ -8,21 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat.startActivityForResult
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.ui.addClasse.AddClassePage
+import com.example.schoolapp.viewModels.ClasseStudentModelFactory
+import com.example.schoolapp.viewModels.ClasseStudentViewModel
 
 class ClasseAdapter(private val onClickListener: OnClickListener) : ListAdapter<Classe, ClasseAdapter.WordViewHolder>(WordsComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder.create(parent)
     }
-
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val current = getItem(position)
         holder.bind(current, onClickListener)
