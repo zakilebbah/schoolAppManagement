@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <LinearLayout
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -13,6 +14,47 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+
+            android:paddingVertical="6dp"
+            android:paddingHorizontal="4dp"
+            android:elevation="8dp"
+            android:background="@drawable/shape"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="6dp"
+                android:layout_margin="2dp">
+
+                <EditText
+                    android:id="@+id/editsearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#EFF3F4"
+                    android:padding="10dp"
+                    android:shadowColor="@color/black"
+                    android:shadowRadius="@integer/material_motion_duration_long_2"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    tools:text="Rich" />
+                <ImageView
+                    android:id="@+id/ic_search"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_search"
+                    app:tint="@color/colorPrimary"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    />
+            </RelativeLayout>
+        </LinearLayout>
+
 <!--        <EditText-->
 <!--            android:id="@+id/search"-->
 <!--            android:layout_width="match_parent"-->
@@ -29,6 +71,7 @@
             android:layout_height="wrap_content"
             tools:listitem="@layout/card_view_design"
             android:padding="@dimen/big_padding"
+            android:layout_marginTop="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
