@@ -1,8 +1,7 @@
-package com.example.schoolapp.ui.addClasse
+package com.example.schoolapp.ui.classePage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,8 +11,8 @@ import com.example.schoolapp.R
 import com.example.schoolapp.adapters.AddStudentToClasseAdapter
 import com.example.schoolapp.data.ClassRoom_Student
 import com.example.schoolapp.data.Student
-import com.example.schoolapp.ui.dashboard.StudentsViewModel
-import com.example.schoolapp.ui.dashboard.StudentsViewModelFactory
+import com.example.schoolapp.ui.studentsList.StudentsViewModel
+import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import com.example.schoolapp.viewModels.ClasseStudentModelFactory
 import com.example.schoolapp.viewModels.ClasseStudentViewModel
 
@@ -27,6 +26,9 @@ class StudentsList() : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_students_list)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         var cid: Int = intent.getIntExtra("cid", -1)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
         val adapter = AddStudentToClasseAdapter(AddStudentToClasseAdapter.OnClickListener { student, type ->
@@ -47,14 +49,25 @@ class StudentsList() : AppCompatActivity() {
                 classeStudentsViewModel.deleteByCidSid(cid, student.sid)
             }
 
-        }, classeStudentsViewModel, cid)
+        }, cid)
         setTitle("Students")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         studentsViewModel.allWords.observe(this) { students ->
-            // Update the cached copy of the words in the adapter.
+            for (i in students.indices) {
+                if (classeStudentsViewModel.loadCidSid(cid, students[i]!!.sid) != null) {
+                    students[i].attendance = 1
+                }
+                else {
+                    students[i].attendance = 0
+                }
+            }
             students.let { adapter.submitList(it) }
         }
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
     fun addStudentToClasse(student0: Student, cid: Int) {
         classeStudentsViewModel.insert(ClassRoom_Student(0, student0.sid, cid, 0))

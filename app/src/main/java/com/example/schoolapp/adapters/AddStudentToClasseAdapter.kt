@@ -18,10 +18,8 @@ import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.AttendanceViewModel
 import com.example.schoolapp.viewModels.ClasseStudentViewModel
 
-class AddStudentToClasseAdapter(private val onClickListener: AddStudentToClasseAdapter.OnClickListener,
-                                private val classeViewModel: ClasseStudentViewModel, cid: Int
+class AddStudentToClasseAdapter(private val onClickListener: AddStudentToClasseAdapter.OnClickListener, cid: Int
 ): ListAdapter<Student, AddStudentToClasseAdapter.StudentViewHolder>(StudentAdapter.StudentComparator()) {
-    private val  classeViewModel0: ClasseStudentViewModel = classeViewModel
     private val cid0: Int = cid
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddStudentToClasseAdapter.StudentViewHolder {
         return AddStudentToClasseAdapter.StudentViewHolder.create(parent)
@@ -29,7 +27,7 @@ class AddStudentToClasseAdapter(private val onClickListener: AddStudentToClasseA
 
     override fun onBindViewHolder(holder: AddStudentToClasseAdapter.StudentViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current, onClickListener,classeViewModel0, cid0 )
+        holder.bind(current, onClickListener, cid0 )
     }
     class OnClickListener(val clickListener: (student: Student, type: Int) -> Unit) {
         fun onClick(student: Student, type: Int) = clickListener(student, type)
@@ -39,9 +37,9 @@ class AddStudentToClasseAdapter(private val onClickListener: AddStudentToClasseA
         private val card: CardView = itemView.findViewById(R.id.card)
         private val checkBox: CheckBox = itemView.findViewById(R.id.checkBox1)
         fun bind(student: Student?, onClickListener: OnClickListener,
-                 classeViewModel0: ClasseStudentViewModel, cid0: Int) {
+                  cid0: Int) {
             wordItemView.text = student!!.name + " " + student!!.prenom
-            if (classeViewModel0.loadCidSid(cid0, student!!.sid) != null) {
+            if (student.attendance != null && student.attendance == 1) {
                 checkBox.isChecked = true
             }
             checkBox.setOnClickListener {

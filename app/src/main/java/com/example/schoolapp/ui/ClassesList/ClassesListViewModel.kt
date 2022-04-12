@@ -1,11 +1,11 @@
-package com.example.schoolapp.ui.home
+package com.example.schoolapp.ui.ClassesList
 
 import androidx.lifecycle.*
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.data.ClasseRepository
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val repository: ClasseRepository) : ViewModel() {
+class ClassesListViewModel(private val repository: ClasseRepository) : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is home Fragment"

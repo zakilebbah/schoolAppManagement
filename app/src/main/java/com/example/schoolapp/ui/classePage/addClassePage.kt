@@ -29,6 +29,9 @@ class AddClassePage : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_classe_page)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
         name = findViewById(R.id.name)
         grade = findViewById(R.id.grade)
         id = intent.getIntExtra("id", -1)
@@ -60,7 +63,10 @@ class AddClassePage : AppCompatActivity() {
             finish()
         }
     }
-
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
     companion object {
         const val EXTRA_REPLY = "com.example.android.studentslistsql.REPLY"
     }

@@ -13,20 +13,13 @@ import android.widget.LinearLayout
 import androidx.activity.viewModels
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
-import com.example.schoolapp.data.Classe
 import com.example.schoolapp.data.Student
-import com.example.schoolapp.databinding.ActivityAddClassePageBinding
 import com.example.schoolapp.databinding.ActivityAddStudentPageBinding
-import com.example.schoolapp.databinding.ActivityClassePageBinding
-import com.example.schoolapp.ui.addClasse.AddClassePage
-import com.example.schoolapp.ui.dashboard.StudentsViewModel
-import com.example.schoolapp.ui.dashboard.StudentsViewModelFactory
-import com.example.schoolapp.viewModels.ClasseViewModel
-import com.example.schoolapp.viewModels.WordViewModelFactory
+import com.example.schoolapp.ui.studentsList.StudentsViewModel
+import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.reflect.full.memberProperties
 
 class AddStudentPage : AppCompatActivity() {
     private lateinit var binding: ActivityAddStudentPageBinding

@@ -1,4 +1,4 @@
-package com.example.schoolapp.ui.home
+package com.example.schoolapp.ui.ClassesList
 
 import android.app.Activity
 import android.content.Intent
@@ -7,26 +7,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
-import com.example.schoolapp.R
 import com.example.schoolapp.adapters.ClasseAdapter
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.databinding.FragmentHomeBinding
 import com.example.schoolapp.ui.addClasse.AddClassePage
-import com.example.schoolapp.ui.addClasse.ClassePage
 import com.example.schoolapp.ui.classePage.MainClassePage
 import com.example.schoolapp.viewModels.ClasseViewModel
 import com.example.schoolapp.viewModels.WordViewModelFactory
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class HomeFragment : Fragment() {
+class ClassesListFragment : Fragment() {
     private val newClasseActivityRequestCode = 1
-    private lateinit var homeViewModel: HomeViewModel
+    private lateinit var classesListViewModel: ClassesListViewModel
     private var _binding: FragmentHomeBinding? = null
     private val classeViewModel: ClasseViewModel by viewModels {
         WordViewModelFactory((activity?.application as MainApp).repositoryClasse)

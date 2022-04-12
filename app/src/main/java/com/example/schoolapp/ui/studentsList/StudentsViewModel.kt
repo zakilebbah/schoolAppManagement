@@ -1,11 +1,8 @@
-package com.example.schoolapp.ui.dashboard
+package com.example.schoolapp.ui.studentsList
 
 import androidx.lifecycle.*
-import com.example.schoolapp.data.Classe
-import com.example.schoolapp.data.ClasseRepository
 import com.example.schoolapp.data.Student
 import com.example.schoolapp.data.StudentRepository
-import com.example.schoolapp.viewModels.ClasseViewModel
 import kotlinx.coroutines.launch
 
 class StudentsViewModel(private val repository: StudentRepository) : ViewModel() {

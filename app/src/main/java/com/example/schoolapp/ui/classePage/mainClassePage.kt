@@ -3,9 +3,6 @@ package com.example.schoolapp.ui.classePage
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.text.DateFormat.YEAR_ABBR_MONTH
-import android.icu.text.DateFormat.getPatternInstance
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,32 +10,24 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.DatePicker
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.annotation.RequiresApi
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
-import com.example.schoolapp.adapters.StudentAdapter
 import com.example.schoolapp.adapters.StudentClasseAdapter
+import com.example.schoolapp.data.Attendance
 import com.example.schoolapp.data.ClassRoom_Student
 import com.example.schoolapp.data.Classe
-import com.example.schoolapp.data.Student
+import com.example.schoolapp.data.StudentWithclass
 import com.example.schoolapp.ui.addClasse.AddClassePage
-import com.example.schoolapp.ui.addClasse.StudentsList
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import org.w3c.dom.Text
-import java.text.DateFormat
 import java.text.SimpleDateFormat
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 class MainClassePage : AppCompatActivity() {
     private val classeActivityRequestCode = 2
@@ -58,11 +47,14 @@ class MainClassePage : AppCompatActivity() {
     private var nameClasse : TextView? = null
     private var gradeClass : TextView? = null
     private var nbrEtudiant : TextView? = null
+    private var date: String = ""
     var cal = Calendar.getInstance()
+    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private fun updateDateInView() {
         val myFormat = "dd/MM/yyyy" // mention the format you need
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dateView!!.text = sdf.format(cal.getTime())
+        date = sdf.format(cal.getTime())
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,12 +70,14 @@ class MainClassePage : AppCompatActivity() {
         gradeClass = findViewById(R.id.gradeClass)
         recyclerView = findViewById(R.id.recyclerview)
         dateView = findViewById(R.id.date)
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val date: String  =  LocalDateTime.now().format(formatter)
+        date =  LocalDateTime.now().format(formatter)
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
             val intent = Intent(this, AddStudentPage::class.java)
             intent.putExtra("id", student.student.sid)
-            startActivityForResult(intent, classeActivityRequestCode)}, attendanceViewModel, date)
+            startActivityForResult(intent, classeActivityRequestCode)},
+
+            StudentClasseAdapter.OnClickListener2 { student, status ->
+                studentAttendanceClick(student, status)}, date)
 
 
         dateView!!.text = date
@@ -101,7 +95,7 @@ class MainClassePage : AppCompatActivity() {
                 cal.set(Calendar.MONTH, monthOfYear)
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView()
-                rebuildRecycle(id)
+                rebuildRecycle(id, date)
 
 
             }
@@ -117,6 +111,13 @@ class MainClassePage : AppCompatActivity() {
         classeStudentsViewModel.allStudents(id).observe(this) { classeStudents ->
             nbrEtudiant = findViewById(R.id.nbretudiant)
             nbrEtudiant?.text = classeStudents.size.toString()
+            for (i in classeStudents.indices) {
+                var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
+                    classeStudents[i]!!.classRoom_Student.class_room_id)
+                if (attendance != null) {
+                    classeStudents[i]!!.student.attendance = attendance.status
+                }
+            }
             classeStudents.let { adapter.submitList(classeStudents) }
         }
 
@@ -138,17 +139,25 @@ class MainClassePage : AppCompatActivity() {
         onBackPressed()
         return true
     }
-    fun rebuildRecycle(id0: Int) {
+    fun rebuildRecycle(id0: Int, date: String) {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
             val intent = Intent(this, AddStudentPage::class.java)
             intent.putExtra("id", student.student.sid)
-            startActivityForResult(intent, classeActivityRequestCode)}, attendanceViewModel, dateView!!.text.toString())
-        recyclerView!!.setAdapter(null);
-        recyclerView!!.setLayoutManager(null);
+            startActivityForResult(intent, classeActivityRequestCode)},
+            StudentClasseAdapter.OnClickListener2 { student, status ->
+                studentAttendanceClick(student, status)
+                }, dateView!!.text.toString())
         recyclerView!!.setAdapter(adapter);
         recyclerView!!.setLayoutManager(LinearLayoutManager(this));
         adapter.notifyDataSetChanged();
         classeStudentsViewModel.allStudents(id0).observe(this) { classeStudents ->
+            for (i in classeStudents.indices) {
+                var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
+                    classeStudents[i]!!.classRoom_Student.class_room_id)
+                if (attendance != null) {
+                    classeStudents[i]!!.student.attendance = attendance.status
+                }
+            }
             classeStudents.let { adapter.submitList(classeStudents) }
         }
     }
@@ -156,6 +165,18 @@ class MainClassePage : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.classe_menu, menu)
         return true
+    }
+    fun studentAttendanceClick(student: StudentWithclass, status: Int) {
+        var attendance: Attendance = attendanceViewModel.searchByDate(date, student!!.student.sid,
+            student!!.classRoom_Student.class_room_id)
+        if (attendance != null) {
+            attendanceViewModel.update(Attendance(attendance.aid, student.classRoom_Student.student_id,
+                student.classRoom_Student.class_room_id, status, date))
+        }
+        else {
+            attendanceViewModel.insert(Attendance(0, student.classRoom_Student.student_id,
+                student.classRoom_Student.class_room_id, status, date))
+        }
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle action bar item clicks here.
