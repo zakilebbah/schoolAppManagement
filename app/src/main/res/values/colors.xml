@@ -12,4 +12,7 @@
 
     <color name="bg_dark">#1B1717</color>
     <color name="blueDark">#1A192B</color>
+    <color name="i1">#0D00EF</color>
+    <color name="i2">#2BFF00</color>
+
 </resources>

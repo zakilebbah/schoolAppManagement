@@ -3,11 +3,18 @@ package com.example.schoolapp.ui.studentsList
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,29 +36,42 @@ class StudentsFragment : Fragment() {
     // onDestroyView.
 
     private val binding get() = _binding!!
-
+    private var searchText : EditText? = null
+    private var recyclerView: RecyclerView? = null
+    private var adapter: StudentAdapter? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         _binding = FragmentStudentsBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
-
-        val recyclerView: RecyclerView = binding.recyclerview
-        val adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
+        recyclerView = binding.recyclerview
+        searchText = binding.editsearch
+        adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
             val intent = Intent(context, AddStudentPage::class.java)
             intent.putExtra("id", student.sid)
             startActivityForResult(intent, newStudentActivityRequestCode)})
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView!!.adapter = adapter
+        recyclerView!!.layoutManager = LinearLayoutManager(context)
         studentsViewModel.allWords.observe(this) { students ->
             // Update the cached copy of the words in the adapter.
-            students.let { adapter.submitList(it) }
+            students.let { adapter!!.submitList(it) }
         }
+        searchText!!.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int,
+                                           count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int,
+                                       before: Int, count: Int) {
+                Log.d("TEST ", s.toString())
+                onSearch(s.toString())
+            }
+
+        })
         val fab =binding.fab
         fab.setOnClickListener {
             val intent = Intent(context, AddStudentPage::class.java)
@@ -59,12 +79,25 @@ class StudentsFragment : Fragment() {
         }
         return root
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
-
-        if (requestCode == newStudentActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
+    fun onSearch(name0: String) {
+        adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
+            val intent = Intent(context, AddStudentPage::class.java)
+            intent.putExtra("id", student.sid)
+            resultLauncher.launch(intent)
+//            startActivityForResult(intent, newStudentActivityRequestCode)
+        })
+        recyclerView!!.adapter = adapter
+        recyclerView!!.layoutManager = LinearLayoutManager(context)
+        studentsViewModel.search("%"+ name0 +"%").observe(this) { students ->
+            Log.d("TEST ", students.size.toString())
+            students.let { adapter!!.submitList(it) }
+        }
+    }
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+            data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
                     val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
                     studentsViewModel.insert(student0)
@@ -76,16 +109,28 @@ class StudentsFragment : Fragment() {
 
             }
         }
-//        else {
-//            Toast.makeText(
-//                context,
-//                R.string.empty_not_saved,
-//                Toast.LENGTH_LONG
-//            ).show()
-//        }
     }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, intentData)
+//
+//        if (requestCode == newStudentActivityRequestCode && resultCode == Activity.RESULT_OK) {
+//            intentData?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
+//                if (reply[0].toInt() == -1) {
+//                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
+//                    studentsViewModel.insert(student0)
+//                }
+//                else {
+//                    val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
+//                    studentsViewModel.update(student0)
+//                }
+//
+//            }
+//        }
+//    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 }
+
+

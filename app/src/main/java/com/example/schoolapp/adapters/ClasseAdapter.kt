@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -35,10 +37,11 @@ class ClasseAdapter(private val onClickListener: OnClickListener) : ListAdapter<
     }
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val newClasseActivityRequestCode = 1
-
+        private val image: ImageView = itemView.findViewById(R.id.image)
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
         private val card: CardView = itemView.findViewById(R.id.card)
         fun bind(classe: Classe?, onClickListener: OnClickListener) {
+            image.isVisible = false
             wordItemView.text = classe!!.name
             card.setOnClickListener { view ->
 //                goToClassRoom(classe.cid, view)

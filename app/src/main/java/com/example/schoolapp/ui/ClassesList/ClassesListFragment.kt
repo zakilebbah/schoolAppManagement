@@ -65,6 +65,7 @@ class ClassesListFragment : Fragment() {
         }
         return root
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
         super.onActivityResult(requestCode, resultCode, intentData)
         Log.d("DELETE DELETE", resultCode.toString())

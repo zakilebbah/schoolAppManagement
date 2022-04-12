@@ -1,6 +1,7 @@
 package com.example.schoolapp.data
 
 import androidx.annotation.WorkerThread
+import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 class StudentRepository (private val StudentDao: StudentDao){
@@ -15,5 +16,9 @@ class StudentRepository (private val StudentDao: StudentDao){
     @WorkerThread
     fun updateStudent(student: Student) {
         StudentDao.update(student)
+    }
+    @WorkerThread
+    fun searchStudent(name: String): LiveData<List<Student>> {
+        return StudentDao.findName(name)
     }
 }

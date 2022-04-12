@@ -3,6 +3,7 @@ package com.example.schoolapp.data
 
 
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
@@ -15,7 +16,7 @@ interface StudentDao {
     fun loadById(sid: Int): Student
 
     @Query("SELECT * FROM Student WHERE nom LIKE :name0 OR prenom LIKE :name0")
-    fun findName(name0: String): Student
+    fun findName(name0: String): LiveData<List<Student>>
 
     @Insert
     fun insertStudent(student: Student)

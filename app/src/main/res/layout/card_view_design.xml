@@ -8,16 +8,39 @@
     android:clickable="true"
     app:cardElevation="2dp"
     android:id="@+id/card"
-    android:focusable="true">
+    android:focusable="true"
+    android:gravity="center">
 
     <LinearLayout
-        android:layout_marginTop="4dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:padding="3dp">
+        android:padding="1dp"
+        android:layout_gravity="center"
+        >
+        <RelativeLayout
+            android:layout_marginStart="6dp"
+            android:layout_gravity="center"
+            android:id="@+id/icon_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:src="@drawable/bg_circle" />
 
+            <TextView
+                android:id="@+id/icon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+        </RelativeLayout>
         <TextView
+            android:layout_gravity="center"
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
