@@ -62,8 +62,6 @@ class MainClassePage : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-
-
         setTitle("Classe")
         var id: Int = intent.getIntExtra("id", -1)
         nameClasse= findViewById(R.id.nameClass)
@@ -75,15 +73,10 @@ class MainClassePage : AppCompatActivity() {
             val intent = Intent(this, AddStudentPage::class.java)
             intent.putExtra("id", student.student.sid)
             startActivityForResult(intent, classeActivityRequestCode)},
-
             StudentClasseAdapter.OnClickListener2 { student, status ->
                 studentAttendanceClick(student, status)}, date)
-
-
         dateView!!.text = date
-
         Log.d("date date date", date)
-
         recyclerView!!.adapter = adapter
         recyclerView!!.layoutManager = LinearLayoutManager(this)
         adapter.notifyDataSetChanged();
@@ -96,8 +89,6 @@ class MainClassePage : AppCompatActivity() {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateDateInView()
                 rebuildRecycle(id, date)
-
-
             }
         }
         dateView!!.setOnClickListener {
