@@ -122,9 +122,11 @@ class MainClassePage : AppCompatActivity() {
         }
 
         classeViewModel.classById(id).observe(this) { classe ->
-            if (classe != null)
-            nameClasse?.text = classe.name
-            gradeClass?.text=classe.grade
+            if (classe != null) {
+                nameClasse?.text = classe.name
+                gradeClass?.text=classe.grade
+            }
+
         }
         var fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {

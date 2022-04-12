@@ -30,5 +30,8 @@
     <string name="tab_text_2">Students</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="name">Name :</string>
+    <string name="grade">Grade :</string>
+    <string name="n_students">N° students:</string>
 
 </resources>
