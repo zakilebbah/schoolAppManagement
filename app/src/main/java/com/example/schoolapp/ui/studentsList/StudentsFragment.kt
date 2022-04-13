@@ -51,7 +51,8 @@ class StudentsFragment : Fragment() {
         adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->
             val intent = Intent(context, AddStudentPage::class.java)
             intent.putExtra("id", student.sid)
-            startActivityForResult(intent, newStudentActivityRequestCode)})
+            resultLauncher.launch(intent)
+            })
         recyclerView!!.adapter = adapter
         recyclerView!!.layoutManager = LinearLayoutManager(context)
         studentsViewModel.allWords.observe(this) { students ->
@@ -75,7 +76,7 @@ class StudentsFragment : Fragment() {
         val fab =binding.fab
         fab.setOnClickListener {
             val intent = Intent(context, AddStudentPage::class.java)
-            startActivityForResult(intent, newStudentActivityRequestCode)
+            resultLauncher.launch(intent)
         }
         return root
     }
@@ -95,7 +96,6 @@ class StudentsFragment : Fragment() {
     }
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
             val data: Intent? = result.data
             data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {

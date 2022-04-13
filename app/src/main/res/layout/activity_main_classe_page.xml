@@ -37,7 +37,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_baseline_perm_contact_calendar_24" />
+                    android:src="@drawable/calendar" />
 
                 <TextView
                     android:id="@+id/date"

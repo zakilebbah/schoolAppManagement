@@ -3,12 +3,14 @@ buildscript {
 
     ext.kotlin_version = '1.5.31'
     repositories {
+        maven { url 'https://jitpack.io' }
         google()
         mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.4"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10"
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.20'
     }
     ext {
         activityVersion = '1.4.0'

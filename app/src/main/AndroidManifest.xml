@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.schoolapp">
+
     <application
         android:name=".MainApp"
         android:allowBackup="true"
@@ -10,9 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolApp">
         <activity
+            android:name=".ui.classePage.AttendanceHistory"
+            android:exported="false" />
+        <activity
             android:name=".ui.classePage.MainClassePage"
             android:exported="false"
-            android:label="Classe"/>
+            android:label="Classe" />
         <activity
             android:name=".ui.classePage.StudentsList"
             android:exported="false" />
@@ -33,4 +37,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
