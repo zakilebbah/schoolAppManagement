@@ -44,6 +44,7 @@ android {
 //configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
 //}
 dependencies {
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0'
     implementation 'org.naishadhparmar.zcustomcalendar:zcustomcalendar:1.0.1'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
