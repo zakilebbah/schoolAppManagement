@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolApp">
         <activity
+            android:name=".ui.MatieresList.addMatierePage"
+            android:exported="false" />
+        <activity
             android:name=".ui.classePage.AttendanceHistory"
             android:exported="false" />
         <activity
