@@ -18,8 +18,8 @@ class ClasseMatiereRepository(private val classeMatiereDao: ClasseMatiereDao){
         classeMatiereDao.update(classeMatiere)
     }
     @WorkerThread
-   suspend fun loadCidMid(cid: Int, mid0: Int):ClasseMatiere  {
-        return ClasseMatiereDao.loadCidMid1(cid, mid0)
+    fun loadCidMid(cid: Int, mid0: Int): ClasseMatiere  {
+        return classeMatiereDao.loadCidMid1(cid, mid0)
     }
     @WorkerThread
     suspend fun deleteByCidMid(class_matiere_id0: Int,matiere_id0: Int) {
