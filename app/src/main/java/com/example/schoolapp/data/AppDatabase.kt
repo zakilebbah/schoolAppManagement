@@ -9,13 +9,19 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = [Classe::class, Student::class, ClassRoom_Student::class, Attendance::class], version = 7, exportSchema = false)
+@Database(entities = [Classe::class, Student::class,
+    ClassRoom_Student::class, Attendance::class, Matiere::class,
+    Examen::class, Note::class, ClasseMatiere::class], version = 10, exportSchema = false)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun classeDao(): ClasseDao
     abstract fun studentDao(): StudentDao
     abstract fun ClassRoomStudentDao(): ClassRoom_Student_Dao
     abstract fun AttendanceDao(): AttendanceDao
+    abstract fun MatiereDAO(): MatiereDAO
+    abstract fun ExamenDAO(): ExamenDAO
+    abstract fun NoteDAO(): NoteDAO
+    abstract fun ClasseMatiereDao(): ClasseMatiereDao
     private class WordDatabaseCallback(
         private val scope: CoroutineScope
     ) : RoomDatabase.Callback() {

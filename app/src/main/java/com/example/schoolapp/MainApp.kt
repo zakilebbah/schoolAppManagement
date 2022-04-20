@@ -14,4 +14,8 @@ class MainApp : Application() {
     val repositoryStudent by lazy { StudentRepository(database.studentDao()) }
     val repositoryClasseStudent by lazy { ClassRoom_Student_Repository(database.ClassRoomStudentDao()) }
     val repositoryAttendance by lazy { AttendanceRepository(database.AttendanceDao()) }
+    val repositoryMatier by lazy { MatiereRepository(database.MatiereDAO()) }
+    val repositoryExamen by lazy { ExamenRepository(database.ExamenDAO()) }
+    val repositoryNote by lazy { NoteRepository(database.NoteDAO()) }
+    val repositoryClasseMatiere by lazy { ClasseMatiereRepository(database.ClasseMatiereDao()) }
 }
