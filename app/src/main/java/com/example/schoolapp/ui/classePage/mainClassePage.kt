@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +19,7 @@ import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
 import com.example.schoolapp.adapters.StudentClasseAdapter
 import com.example.schoolapp.data.*
+import com.example.schoolapp.ui.MatieresList.MatiereListe
 import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.*
@@ -97,6 +99,12 @@ class MainClassePage : AppCompatActivity() {
                 cal.get(Calendar.MONTH),
 
                 cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        val button: Button = findViewById(R.id.afficher_matiere_button)
+        button.setOnClickListener {
+            val intent = Intent(this, MatiereListe::class.java)
+            intent.putExtra("cid",id)
+            startActivityForResult(intent, classeActivityRequestCode)
         }
         classeStudentsViewModel.allStudents(id).observe(this) { classeStudents ->
             nbrEtudiant = findViewById(R.id.nbretudiant)

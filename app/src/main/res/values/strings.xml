@@ -35,5 +35,10 @@
     <string name="n_students">N° students:</string>
     <string name="coef">Coef</string>
     <string name="course">Course</string>
+    <string name="attendence">Attendence</string>
+
+    <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+    </style>
 
 </resources>

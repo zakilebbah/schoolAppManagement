@@ -21,4 +21,9 @@ interface ClasseMatiereDao {
 
     @Query("DELETE FROM ClasseMatiere")
     fun deleteAll()
+
+    @Query("DELETE FROM ClasseMatiere WHERE  id_classe==:class_id0 and id_matiere==:matiere_id")
+    fun deleteByCidMid(class_id0: Int,matiere_id: Int)
+    @Query("SELECT * FROM ClasseMatiere WHERE id_classe==:class_id0 and id_matiere==:matiere_id0")
+    fun loadCidMid1(class_id0: Int,matiere_id0: Int ): ClasseMatiere
 }
