@@ -49,7 +49,7 @@ class MainClassePage : AppCompatActivity() {
     var cal = Calendar.getInstance()
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private fun updateDateInView() {
-        val myFormat = "dd/MM/yyyy" // mention the format you need
+        val myFormat = "dd/MM/yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.US)
         dateView!!.text = sdf.format(cal.getTime())
         date = sdf.format(cal.getTime())
