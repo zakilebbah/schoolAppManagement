@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 // Annotates class to be a Room Database with a table (entity) of the Word class
 @Database(entities = [Classe::class, Student::class,
     ClassRoom_Student::class, Attendance::class, Matiere::class,
-    Examen::class, Note::class, ClasseMatiere::class], version = 13, exportSchema = false)
+    Examen::class, Note::class, ClasseMatiere::class], version = 14, exportSchema = false)
 public abstract class AppDatabase : RoomDatabase() {
 
     abstract fun classeDao(): ClasseDao
@@ -36,7 +36,7 @@ public abstract class AppDatabase : RoomDatabase() {
                     classeDao0.deleteAll()
 
                     // Add sample words.
-                    var classe = Classe(cid = 0, name = "classe 0", grade = "1", date = "26-03-2022")
+                    var classe = Classe(cid = 0, name = "classe 0", grade = "1", date = "26-03-2022", null)
                     classeDao0.insertClass(classe)
 
                 }

@@ -7,16 +7,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
+import com.example.schoolapp.R
 import com.example.schoolapp.adapters.ClasseAdapter
+import com.example.schoolapp.data.Attendance
 import com.example.schoolapp.data.Classe
 import com.example.schoolapp.databinding.FragmentHomeBinding
 import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.classePage.MainClassePage
+import com.example.schoolapp.viewModels.ClasseStudentModelFactory
+import com.example.schoolapp.viewModels.ClasseStudentViewModel
 import com.example.schoolapp.viewModels.ClasseViewModel
 import com.example.schoolapp.viewModels.WordViewModelFactory
 
@@ -26,6 +32,9 @@ class ClassesListFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val classeViewModel: ClasseViewModel by viewModels {
         WordViewModelFactory((activity?.application as MainApp).repositoryClasse)
+    }
+    private val classeStudentsViewModel: ClasseStudentViewModel by viewModels {
+        ClasseStudentModelFactory((activity?.application as MainApp).repositoryClasseStudent)
     }
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -41,7 +50,7 @@ class ClassesListFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
-
+        (activity as AppCompatActivity).supportActionBar?.title = "Classes"
 //        val textView: TextView = binding.textHome
 //        homeViewModel.text.observe(viewLifecycleOwner, Observer {
 //            textView.text = it
@@ -55,6 +64,9 @@ class ClassesListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
         classeViewModel.allWords.observe(this) { classes ->
             // Update the cached copy of the words in the adapter.
+            for (i in classes.indices) {
+                classes[i].nbr = classeStudentsViewModel.getStudentNumber(classes[i].cid)
+            }
             classes.let { adapter.submitList(it) }
         }
         val fab =binding.fab
@@ -72,12 +84,12 @@ class ClassesListFragment : Fragment() {
         if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringArrayListExtra(AddClassePage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
-                    var classe0 = Classe(0, reply[1], reply[2], reply[3])
+                    var classe0 = Classe(0, reply[1], reply[2], reply[3], null)
                     classeViewModel.insert(classe0)
                 }
                 else {
 
-                    var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3])
+                    var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3], null)
                     classeViewModel.update(classe0)
                 }
 

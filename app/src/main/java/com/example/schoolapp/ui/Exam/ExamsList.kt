@@ -1,18 +1,24 @@
 package com.example.schoolapp.ui.Exam
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
 import com.example.schoolapp.adapters.ExamAdapter
+import com.example.schoolapp.data.Examen
+import com.example.schoolapp.ui.MatieresList.addMatierePage
+import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.ExamsViewModel
 import com.example.schoolapp.viewModels.ExamsViewModelFactory
 import com.example.schoolapp.viewModels.MatiereViewModelFactory
 import com.example.schoolapp.viewModels.MatieresViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class ExamsList : AppCompatActivity() {
     private val examViewModel: ExamsViewModel by viewModels {
@@ -40,6 +46,29 @@ class ExamsList : AppCompatActivity() {
         examViewModel.allWords.observe(this) { classes ->
             // Update the cached copy of the words in the adapter.
             classes.let { adapter.submitList(it) }
+        }
+        var fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            val intent = Intent(this, AddExam::class.java)
+            intent.putExtra("eid",-1)
+            resultLauncher.launch(intent)
+        }
+    }
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        var mid: Int = intent.getIntExtra("mid", -1)
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
+            data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
+                if (reply[0].toInt() == -1) {
+                    val student0 = Examen( 0, reply[1], 1, mid, reply[2])
+                    examViewModel.insert(student0)
+                }
+                else {
+                    val student0 = Examen( reply[0].toInt(), reply[1], 1, mid, reply[2])
+                    examViewModel.update(student0)
+                }
+
+            }
         }
     }
     override fun onSupportNavigateUp(): Boolean {

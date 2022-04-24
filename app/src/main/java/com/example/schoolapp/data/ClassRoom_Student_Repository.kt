@@ -26,6 +26,10 @@ class ClassRoom_Student_Repository(private val StudentClasseDao: ClassRoom_Stude
     fun loadCidSid(cid: Int, sid: Int):ClassRoom_Student  {
         return StudentClasseDao.loadCidSid(cid, sid)
     }
+    @WorkerThread
+    fun getClassWithStudentsNumber(cid: Int):Int  {
+        return StudentClasseDao.getClassWithStudentsNumber(cid).size
+    }
 
 
 //    @WorkerThread

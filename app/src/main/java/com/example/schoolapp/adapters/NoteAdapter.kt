@@ -19,7 +19,7 @@ import com.example.schoolapp.data.Note
 import com.example.schoolapp.data.StudentWithclass
 import com.example.schoolapp.ui.Exam.IList
 
-class NoteAdapter(private var listener: IList) : ListAdapter<StudentWithclass, NoteAdapter.NoteViewHolder>(
+class NoteAdapter(private var listener: IList, private var eid: Int) : ListAdapter<StudentWithclass, NoteAdapter.NoteViewHolder>(
     NotesComparator()
 ) {
 
@@ -28,7 +28,7 @@ class NoteAdapter(private var listener: IList) : ListAdapter<StudentWithclass, N
     }
     override fun onBindViewHolder(holder: NoteViewHolder, position: Int) {
         val current = getItem(position)
-        holder.bind(current, listener)
+        holder.bind(current, listener, eid)
     }
     class OnClickListener(val clickListener: (studentWithclass: StudentWithclass) -> Unit) {
         fun onClick(studentWithclass: StudentWithclass) = clickListener(studentWithclass)
@@ -37,8 +37,12 @@ class NoteAdapter(private var listener: IList) : ListAdapter<StudentWithclass, N
         private val newClasseActivityRequestCode = 1
         private val name: TextView = itemView.findViewById(R.id.name)
         private val note: EditText = itemView.findViewById(R.id.note)
-        fun bind(studentWithclass: StudentWithclass?, listener: IList) {
+        fun bind(studentWithclass: StudentWithclass?, listener: IList, eid: Int) {
             name.text = studentWithclass!!.student.name
+            if (studentWithclass!!.student.note != null) {
+                note.setText(studentWithclass!!.student.note.toString())
+            }
+
             note.addTextChangedListener(object : TextWatcher {
 
                 override fun afterTextChanged(s: Editable) {}
@@ -49,7 +53,7 @@ class NoteAdapter(private var listener: IList) : ListAdapter<StudentWithclass, N
 
                 override fun onTextChanged(s: CharSequence, start: Int,
                                            before: Int, count: Int) {
-                    listener.addToList(s.toString())
+                    listener.addToList(s.toString(), studentWithclass.classRoom_Student.class_room_id, studentWithclass.student.sid, eid)
 
                 }
             })

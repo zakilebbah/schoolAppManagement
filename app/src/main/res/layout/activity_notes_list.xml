@@ -73,7 +73,33 @@
                     app:layout_constraintStart_toEndOf="@+id/gradeid"
                     />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_marginLeft="8dp"
+                    android:id="@+id/ExamLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Examen: "
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                    app:layout_constraintStart_toStartOf="parent" />
 
+                <TextView
+                    android:id="@+id/exam"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="20dp"
+                    android:layout_marginLeft="8dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/recyclerview"
+                    app:layout_constraintStart_toEndOf="@+id/gradeid"
+                    />
+            </LinearLayout>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

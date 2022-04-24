@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LiveData
@@ -46,6 +47,7 @@ class StudentsFragment : Fragment() {
     ): View? {
         _binding = FragmentStudentsBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        (activity as AppCompatActivity).supportActionBar?.title = "Students"
         recyclerView = binding.recyclerview
         searchText = binding.editsearch
         adapter = StudentAdapter(StudentAdapter.OnClickListener { student ->

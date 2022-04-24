@@ -17,6 +17,9 @@ class ClasseStudentViewModel(private val repository: ClassRoom_Student_Repositor
     /**
      * Launching a new coroutine to insert the data in a non-blocking way
      */
+    fun getStudentNumber(id: Int): Int {
+        return repository.getClassWithStudentsNumber(id)
+    }
     fun insert(classe: ClassRoom_Student) = viewModelScope.launch {
         repository.insert(classe)
     }

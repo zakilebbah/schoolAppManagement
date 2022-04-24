@@ -59,8 +59,8 @@ class MatiereListe() : AppCompatActivity() {
         }
         var fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this, MatiereListe::class.java)
-//            intent.putExtra("cid",id)
+            val intent = Intent(this, addMatierePage::class.java)
+            intent.putExtra("id", -1)
             resultLauncher.launch(intent)
         }
 
@@ -72,10 +72,16 @@ class MatiereListe() : AppCompatActivity() {
     }
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            // There are no request codes
             val data: Intent? = result.data
             data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
-
+                if (reply[0].toInt() == -1) {
+                    val matiere0 = Matiere( 0, reply[1], reply[2].toDouble())
+                    matiereViewModel.insert(matiere0)
+                }
+                else {
+                    val matiere0 = Matiere( reply[0].toInt(), reply[1], reply[2].toDouble())
+                    matiereViewModel.update(matiere0)
+                }
 
             }
         }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -15,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
+import com.example.schoolapp.R
 import com.example.schoolapp.adapters.ClasseAdapter
 import com.example.schoolapp.adapters.MatiereAdapter
 import com.example.schoolapp.data.Matiere
@@ -45,6 +47,7 @@ class MatiersFragment : Fragment() {
 
         _binding = FragmentMatieresBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        (activity as AppCompatActivity).supportActionBar?.title = "Matiers"
         val recyclerView: RecyclerView = binding.recyclerview
         val adapter = MatiereAdapter(MatiereAdapter.OnClickListener { matiere ->
 //            val intent = Intent(context, addMatierePage::class.java)

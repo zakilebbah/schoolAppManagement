@@ -8,7 +8,12 @@ import com.example.schoolapp.data.NoteRepository
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
-
+    fun insert(note: Note) = viewModelScope.launch {
+        repository.insert(note)
+    }
+    fun update(note: Note) = viewModelScope.launch {
+        repository.update(note)
+    }
     fun searchNote(sid: Int, eid: Int, cid: Int): Note {
         return repository.search(sid, eid, cid)
     }

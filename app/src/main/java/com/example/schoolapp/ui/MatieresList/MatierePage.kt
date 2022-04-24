@@ -57,6 +57,7 @@ class MatierePage : AppCompatActivity() {
             intent.putExtra("eid",-1)
             resultLauncher.launch(intent)
         }
+
     }
     var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {

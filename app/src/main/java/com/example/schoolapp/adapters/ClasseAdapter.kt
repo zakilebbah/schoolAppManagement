@@ -37,12 +37,15 @@ class ClasseAdapter(private val onClickListener: OnClickListener) : ListAdapter<
     }
     class WordViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val newClasseActivityRequestCode = 1
-        private val image: ImageView = itemView.findViewById(R.id.image)
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
+        private val number_student: TextView = itemView.findViewById(R.id.number_student)
         private val card: CardView = itemView.findViewById(R.id.card)
         fun bind(classe: Classe?, onClickListener: OnClickListener) {
-            image.isVisible = false
             wordItemView.text = classe!!.name
+            if (classe!!.nbr != null) {
+                number_student.text = classe!!.nbr.toString()
+            }
+
             card.setOnClickListener { view ->
 //                goToClassRoom(classe.cid, view)
                 onClickListener.onClick(classe)
@@ -52,7 +55,7 @@ class ClasseAdapter(private val onClickListener: OnClickListener) : ListAdapter<
         companion object {
             fun create(parent: ViewGroup): WordViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.card_view_design, parent, false)
+                    .inflate(R.layout.card_view_list_class, parent, false)
                 return WordViewHolder(view)
             }
         }

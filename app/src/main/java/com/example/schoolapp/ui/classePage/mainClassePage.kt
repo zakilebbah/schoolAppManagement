@@ -13,6 +13,7 @@ import android.widget.DatePicker
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
@@ -167,7 +168,41 @@ class MainClassePage : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.classe_menu, menu)
-        return true
+       /* val item = menu?.findItem(R.id.search_tool)
+        val searchview = item?.actionView as SearchView
+        var id0: Int = intent.getIntExtra("id", -1)
+        searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                TODO("Not yet implemented")
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                val name0 = newText!!.toLowerCase(Locale.getDefault())
+                if(newText.isNotEmpty())
+                {
+                    val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
+                        val intent = Intent(this@MainClassePage, AttendanceHistory::class.java)
+                        intent.putExtra("id", student.student.sid)
+                        startActivityForResult(intent, classeActivityRequestCode)},
+                        StudentClasseAdapter.OnClickListener2 { student, status ->
+                            studentAttendanceClick(student, status)}, date)
+                    recyclerView!!.adapter = adapter
+                    recyclerView!!.layoutManager = LinearLayoutManager(this@MainClassePage)
+                    classeStudentsViewModel.allStudents(id0).observe(this) { classeStudents ->
+                        classeStudents
+                        for (i in classeStudents.indices) {
+                            var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
+                                classeStudents[i]!!.classRoom_Student.class_room_id)
+                            if (attendance != null) {
+                                classeStudents[i]!!.student.attendance = attendance.status
+                            }
+                        }
+                        classeStudents.let { adapter.submitList(classeStudents) }
+                    }
+                }
+                return false
+            }
+        }) */       return true
     }
     fun studentAttendanceClick(student: StudentWithclass, status: Int) {
         var attendance: Attendance = attendanceViewModel.searchByDate(date, student!!.student.sid,
@@ -218,13 +253,13 @@ class MainClassePage : AppCompatActivity() {
         } else if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
             intentData?.getStringArrayListExtra(AddClassePage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
-                    var classe0 = Classe(0, reply[1], reply[2], reply[3])
+                    var classe0 = Classe(0, reply[1], reply[2], reply[3], null)
                     classeViewModel.insert(classe0)
 
                 }
                 else {
 
-                    var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3])
+                    var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3], null)
                     classeViewModel.update(classe0)
 
                 }
