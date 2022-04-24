@@ -15,7 +15,8 @@ class Student(
     @ColumnInfo(name = "adresse") var adresse: String,
     @ColumnInfo(name = "DateNaissance") var DateNaissance: String?,
     @ColumnInfo(name = "date_creation") var date_creation: String?,
-    @Ignore var attendance: Int?
+    @Ignore var attendance: Int?,
+    @Ignore var note: Double?
     ) {
-    constructor():this(0,"", "", "", "", "", "", "", null)
+    constructor():this(0,"", "", "", "", "", "", "", null, null)
 }

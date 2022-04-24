@@ -47,7 +47,8 @@ class MatiersFragment : Fragment() {
         val root: View = binding.root
         val recyclerView: RecyclerView = binding.recyclerview
         val adapter = MatiereAdapter(MatiereAdapter.OnClickListener { matiere ->
-            val intent = Intent(context, addMatierePage::class.java)
+//            val intent = Intent(context, addMatierePage::class.java)
+            val intent = Intent(context, MatierePage::class.java)
             intent.putExtra("id", matiere.Mid)
             resultLauncher.launch(intent)})
         recyclerView.adapter = adapter

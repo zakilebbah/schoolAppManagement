@@ -15,7 +15,8 @@ interface ExamenDAO {
 
     @Query("SELECT * FROM Examen WHERE nom LIKE :name0")
     fun findName(name0: String): LiveData<List<Examen>>
-
+    @Query("SELECT * FROM Examen WHERE id_matiere = :mid")
+    fun loadByMatiere(mid: Int): LiveData<List<Examen>>
     @Insert
     fun insert(examen: Examen)
     @Update(entity = Examen::class)

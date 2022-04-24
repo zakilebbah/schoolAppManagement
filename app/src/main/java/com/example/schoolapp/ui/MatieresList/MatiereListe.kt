@@ -21,7 +21,9 @@ import com.example.schoolapp.R
 import com.example.schoolapp.adapters.AddStudentToClasseAdapter
 import com.example.schoolapp.data.ClassRoom_Student
 import com.example.schoolapp.data.Student
+import com.example.schoolapp.ui.Exam.ExamsList
 import com.example.schoolapp.ui.addStudent.AddStudentPage
+import com.example.schoolapp.ui.classePage.StudentsList
 import com.example.schoolapp.ui.studentsList.StudentsViewModel
 import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,29 +43,26 @@ class MatiereListe() : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         var cid: Int = intent.getIntExtra("cid", -1)
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
-        val adapter = AddMatiereToClassAdapter(AddMatiereToClassAdapter.OnClickListener { matiere, type ->
-            if (type == 0) {
-                if (matiereClassViewModel.loadCidMid(cid,matiere.Mid) == null) {
-                    matiereClassViewModel.insert(ClasseMatiere(0, cid, matiere.Mid))
-                }
-                else {
-                    Toast.makeText(
-                        this,
-                        "Student exists in class room",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            }
-
-            else {
-                matiereClassViewModel.deleteByCidMid(cid, matiere.Mid)
-            }
+        val adapter = AddMatiereToClassAdapter(AddMatiereToClassAdapter.OnClickListener { matiere ->
+            val intent = Intent(this, ExamsList::class.java)
+            intent.putExtra("cid", cid)
+            intent.putExtra("mid", matiere.Mid)
+            startActivity(intent)
 
         }, cid)
-        setTitle("Students")
+        setTitle("Choose a subject")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-
+        matiereViewModel.allMatiers.observe(this) { classes ->
+            // Update the cached copy of the words in the adapter.
+            classes.let { adapter.submitList(it) }
+        }
+        var fab: FloatingActionButton = findViewById(R.id.fab)
+        fab.setOnClickListener {
+            val intent = Intent(this, MatiereListe::class.java)
+//            intent.putExtra("cid",id)
+            resultLauncher.launch(intent)
+        }
 
     }
 
@@ -71,9 +70,15 @@ class MatiereListe() : AppCompatActivity() {
         onBackPressed()
         return true
     }
-    fun addStudentToClasse(matiere0: Matiere, cid: Int) {
-        matiereClassViewModel.insert(ClasseMatiere(0, matiere0.Mid, cid))
-        finish()
+    var resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // There are no request codes
+            val data: Intent? = result.data
+            data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
+
+
+            }
+        }
     }
     companion object {
         const val EXTRA_REPLY = "com.example.android.Studentslistsql.REPLY"

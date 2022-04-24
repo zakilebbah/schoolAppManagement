@@ -70,9 +70,9 @@ class MainClassePage : AppCompatActivity() {
         dateView = findViewById(R.id.date)
         date =  LocalDateTime.now().format(formatter)
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            val intent = Intent(this, AttendanceHistory::class.java)
-            intent.putExtra("id", student.student.sid)
-            startActivityForResult(intent, classeActivityRequestCode)},
+            val modalBottomSheet = StudentBottomSheet()
+            modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
+        },
             StudentClasseAdapter.OnClickListener2 { student, status ->
                 studentAttendanceClick(student, status)}, date)
         dateView!!.text = date
@@ -100,7 +100,7 @@ class MainClassePage : AppCompatActivity() {
 
                 cal.get(Calendar.DAY_OF_MONTH)).show()
         }
-        val button: Button = findViewById(R.id.afficher_matiere_button)
+        val button: Button = findViewById(R.id.afficher_notes_button)
         button.setOnClickListener {
             val intent = Intent(this, MatiereListe::class.java)
             intent.putExtra("cid",id)
@@ -141,9 +141,12 @@ class MainClassePage : AppCompatActivity() {
     }
     fun rebuildRecycle(id0: Int, date: String) {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            val intent = Intent(this, AddStudentPage::class.java)
-            intent.putExtra("id", student.student.sid)
-            startActivityForResult(intent, classeActivityRequestCode)},
+            val modalBottomSheet = StudentBottomSheet()
+            modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
+//            val intent = Intent(this, AddStudentPage::class.java)
+//            intent.putExtra("id", student.student.sid)
+//            startActivityForResult(intent, classeActivityRequestCode)
+        },
             StudentClasseAdapter.OnClickListener2 { student, status ->
                 studentAttendanceClick(student, status)
                 }, dateView!!.text.toString())

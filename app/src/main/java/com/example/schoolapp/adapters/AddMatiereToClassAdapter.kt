@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -27,8 +28,8 @@ class AddMatiereToClassAdapter(private val onClickListener: AddMatiereToClassAda
         val current = getItem(position)
         holder.bind(current, onClickListener, mid0 )
     }
-    class OnClickListener(val clickListener: (matiere:Matiere, type: Int) -> Unit) {
-        fun onClick(matiere: Matiere, type: Int) = clickListener(matiere, type)
+    class OnClickListener(val clickListener: (matiere:Matiere) -> Unit) {
+        fun onClick(matiere: Matiere) = clickListener(matiere)
     }
     class MatiereViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
@@ -37,20 +38,11 @@ class AddMatiereToClassAdapter(private val onClickListener: AddMatiereToClassAda
         fun bind(matiere: Matiere?, onClickListener: OnClickListener,
                  cid0: Int) {
             wordItemView.text = matiere!!.name
-            if (matiere.trouve != null && matiere.trouve == 1) {
-                checkBox.isChecked = true
+            card.setOnClickListener { view ->
+//                goToStudent(student.sid, view)
+                onClickListener.onClick(matiere)
             }
-            checkBox.setOnClickListener {
-                if (checkBox.isChecked) {
-
-                    onClickListener.onClick(matiere, 0)
-                }
-                else {
-                    val matiere0: Matiere = matiere
-                    onClickListener.onClick(matiere0, -1)
-                }
-            }
-
+            checkBox.isVisible = false
 
         }
 

@@ -20,6 +20,7 @@ import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
 import com.example.schoolapp.data.*
 import com.example.schoolapp.ui.addStudent.AddStudentPage
+import com.example.schoolapp.ui.classePage.StudentBottomSheet
 import com.example.schoolapp.viewModels.AttendanceViewModel
 import com.example.schoolapp.viewModels.ClasseStudentModelFactory
 import com.example.schoolapp.viewModels.ClasseStudentViewModel
@@ -55,6 +56,7 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
             card.setOnClickListener { view ->
 //                goToStudent(student.sid, view)
                 onClickListener.onClick(student)
+
             }
              if (student.student.attendance != null && student.student.attendance == 0) {
               //  button.setBackgroundColor(Color.RED)

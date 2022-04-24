@@ -6,8 +6,8 @@ import kotlinx.coroutines.flow.Flow
 
 class ExamenRepository(private val examenDAO: ExamenDAO){
     @WorkerThread
-    fun getStudent(mid: Int) = examenDAO.loadById(mid)
-    val allStudents: Flow<List<Examen>> = examenDAO.getAll()
+    fun getExam(mid: Int) = examenDAO.loadById(mid)
+    val allExams: Flow<List<Examen>> = examenDAO.getAll()
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(examen: Examen) {
@@ -21,4 +21,9 @@ class ExamenRepository(private val examenDAO: ExamenDAO){
     fun search(name: String): LiveData<List<Examen>> {
         return examenDAO.findName(name)
     }
+    @WorkerThread
+    fun loadByMatiere(mid: Int): LiveData<List<Examen>> {
+        return examenDAO.loadByMatiere(mid)
+    }
+
 }

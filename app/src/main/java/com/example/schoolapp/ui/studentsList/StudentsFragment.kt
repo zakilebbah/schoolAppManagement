@@ -99,34 +99,17 @@ class StudentsFragment : Fragment() {
             val data: Intent? = result.data
             data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
-                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
+                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)
                     studentsViewModel.insert(student0)
                 }
                 else {
-                    val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
+                    val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)
                     studentsViewModel.update(student0)
                 }
 
             }
         }
     }
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, intentData)
-//
-//        if (requestCode == newStudentActivityRequestCode && resultCode == Activity.RESULT_OK) {
-//            intentData?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
-//                if (reply[0].toInt() == -1) {
-//                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
-//                    studentsViewModel.insert(student0)
-//                }
-//                else {
-//                    val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null)
-//                    studentsViewModel.update(student0)
-//                }
-//
-//            }
-//        }
-//    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

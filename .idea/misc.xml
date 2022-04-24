@@ -29,12 +29,18 @@
         <entry key="app/src/main/res/drawable/bg_circle.xml" value="0.19074074074074074" />
         <entry key="app/src/main/res/drawable/ic_baseline_more_vert_24.xml" value="0.2140625" />
         <entry key="app/src/main/res/drawable/ic_baseline_person_outline_24.xml" value="0.2140625" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_red_24.xml" value="0.14074074074074075" />
+        <entry key="app/src/main/res/drawable/recycle_border.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_add_classe_page.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/activity_add_exam.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/activity_add_student_page.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_attendance_history.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_classe_page.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/activity_exams_list.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_main_classe_page.xml" value="0.2140077821011673" />
+        <entry key="app/src/main/res/layout/activity_main_classe_page.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_matiere_page.xml" value="0.223731884057971" />
+        <entry key="app/src/main/res/layout/activity_notes_list.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_students_list.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/card_attendence_view.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/card_view_add_student_classe.xml" value="0.27943840579710144" />
@@ -44,9 +50,14 @@
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_matieres.xml" value="0.18206521739130435" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/layout/fragment_student_attendance_list_dialog.xml" value="0.17299898682877407" />
+        <entry key="app/src/main/res/layout/fragment_student_attendance_list_dialog_item.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/fragment_students.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/note_view_design.xml" value="0.17299898682877407" />
+        <entry key="app/src/main/res/layout/student_model_sheet.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/menu/classe_menu.xml" value="0.19791666666666666" />
       </map>
     </option>
