@@ -34,6 +34,7 @@
         android:layout_margin="16dp"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/add_student"
+        app:maxImageSize="40dp"
         android:src="@drawable/ic_note_plus"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

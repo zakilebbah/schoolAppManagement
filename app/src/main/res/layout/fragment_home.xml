@@ -47,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="end|bottom"
+        app:maxImageSize="43dp"
         android:contentDescription="@string/add_word"
         android:src="@drawable/school_ic_plus"
      />
