@@ -54,7 +54,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/calendar"
+                    android:src="@drawable/ic_calendar_color"
                     android:layout_marginRight="10dp"/>
 
                 <TextView
