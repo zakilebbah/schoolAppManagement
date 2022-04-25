@@ -9,6 +9,15 @@
     tools:context=".ui.classePage.StudentsList">
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/background_icone"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"

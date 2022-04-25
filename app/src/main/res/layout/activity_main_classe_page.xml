@@ -9,6 +9,15 @@
     android:background="#E4E4E4">
 
     <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:src="@drawable/background_icone"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
         android:layout_width="100dp"
         android:layout_height="130dp"
         android:src="@drawable/ic_undraw_time_management_re_tk5w"
@@ -149,6 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:textAllCaps="false"
         android:text="afficher Notes"
         android:backgroundTint="#32A6EF"
         android:layout_marginBottom="10dp"
