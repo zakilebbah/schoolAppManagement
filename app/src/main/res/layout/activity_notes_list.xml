@@ -4,8 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Exam.NotesList">
-    <androidx.cardview.widget.CardView
+    tools:context=".ui.Exam.NotesList"
+    android:background="#E4E4E4">
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_undraw_teacher_re_sico"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
         android:layout_margin="10dp"
         android:id="@+id/card"
         android:layout_width="match_parent"
@@ -102,7 +111,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:background="@drawable/recycle_border"
         android:id="@+id/recyclerview"

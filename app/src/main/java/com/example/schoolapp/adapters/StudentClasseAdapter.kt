@@ -61,6 +61,7 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
              if (student.student.attendance != null && student.student.attendance == 0) {
               //  button.setBackgroundColor(Color.RED)
                 button.setImageResource(R.drawable.ic_baseline_person_red_24)
+
 //                student.classRoom_Student.attendance = 1
             }
             else if (student.student.attendance != null && student.student.attendance == 1) {
@@ -75,7 +76,9 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
                 }
                 else if (student.student.attendance == 1 || student.student.attendance == null) {
                     student.student.attendance = 0
+
                     button.setImageResource(R.drawable.ic_baseline_person_red_24)
+
                     onClickListener2.onClick(student, 0)
                 }
 

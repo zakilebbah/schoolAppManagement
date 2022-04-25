@@ -128,6 +128,7 @@ class MainClassePage : AppCompatActivity() {
 
         }
         var fab: FloatingActionButton = findViewById(R.id.fab)
+
         fab.setOnClickListener {
 
             val intent = Intent(this, StudentsList::class.java)
@@ -269,3 +270,5 @@ class MainClassePage : AppCompatActivity() {
 
     }
 }
+
+
