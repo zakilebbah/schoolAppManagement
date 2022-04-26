@@ -18,6 +18,10 @@ class NoteRepository(private val noteDAO: NoteDAO) {
         return noteDAO.search(sid, eid, cid)
     }
     @WorkerThread
+    fun searchByStudent(sid: Int):  LiveData<List<Note>> {
+        return noteDAO.searchByStudent(sid)
+    }
+    @WorkerThread
     fun update(note: Note) {
         noteDAO.update(note)
     }

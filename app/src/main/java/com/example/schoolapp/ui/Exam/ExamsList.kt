@@ -43,7 +43,7 @@ class ExamsList : AppCompatActivity() {
         })
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
-        examViewModel.allWords.observe(this) { classes ->
+        examViewModel.loadByMatiere(mid).observe(this) { classes ->
             // Update the cached copy of the words in the adapter.
             classes.let { adapter.submitList(it) }
         }

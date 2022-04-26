@@ -53,14 +53,17 @@ class NotesList : AppCompatActivity() {
             override fun addToList(editTextValue: String?, cid: Int, sid: Int, eid: Int) {
                 Log.d("editTextValue editTextValue", editTextValue.toString())
                 var note: Note = notesViewModel.searchNote(sid, eid, cid)
-                if (note != null) {
-                    note.note = editTextValue!!.toDouble()
-                    notesViewModel.update(note)
+                if (editTextValue != "") {
+                    if (note != null) {
+                        note.note = editTextValue!!.toDouble()
+                        notesViewModel.update(note)
+                    }
+                    else {
+                        var note0 = Note(0, sid, cid, eid, editTextValue!!.toDouble())
+                        notesViewModel.insert(note0)
+                    }
                 }
-                else {
-                    var note0 = Note(0, sid, cid, eid, editTextValue!!.toDouble())
-                    notesViewModel.insert(note0)
-                }
+
             }
         }
         recyclerView = findViewById(R.id.recyclerview)
@@ -88,10 +91,10 @@ class NotesList : AppCompatActivity() {
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
-       // finish()
-       // finish()
-       // var intent = Intent(this, MainClassePage::class.java)
-       // startActivity(intent)
+        // finish()
+        // finish()
+        // var intent = Intent(this, MainClassePage::class.java)
+        // startActivity(intent)
         return true
     }
     fun addToList(editTextValue: String?, cid: Int, sid: Int, eid: Int) {

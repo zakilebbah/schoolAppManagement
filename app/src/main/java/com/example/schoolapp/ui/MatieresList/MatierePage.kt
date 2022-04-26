@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.fragment.app.viewModels
@@ -22,15 +23,22 @@ import com.example.schoolapp.ui.studentsList.StudentsViewModel
 import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import com.example.schoolapp.viewModels.ExamsViewModel
 import com.example.schoolapp.viewModels.ExamsViewModelFactory
+import com.example.schoolapp.viewModels.MatiereViewModelFactory
+import com.example.schoolapp.viewModels.MatieresViewModel
 
 class MatierePage : AppCompatActivity() {
     private val examViewModel: ExamsViewModel by viewModels {
         ExamsViewModelFactory((application as MainApp).repositoryExamen)
     }
+    private val matieresViewModel: MatieresViewModel by viewModels {
+        MatiereViewModelFactory((application as MainApp).repositoryMatier)
+    }
     var id: Int = -1
     private var addButton : Button? = null
     private var recyclerView: RecyclerView? = null
     private var adapter: ExamAdapter? = null
+    private var nameMatiere: TextView? = null
+    private var coef: TextView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_matiere_page)
@@ -40,6 +48,9 @@ class MatierePage : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", -1)
         recyclerView = findViewById(R.id.recyclerview)
+        nameMatiere = findViewById(R.id.nameMatiere)
+        coef = findViewById(R.id.coef)
+        initMatiere(id)
         adapter = ExamAdapter(ExamAdapter.OnClickListener { exam ->
 //            val intent = Intent(this, AddStudentPage::class.java)
 //            intent.putExtra("id", student.sid)
@@ -47,9 +58,9 @@ class MatierePage : AppCompatActivity() {
         })
         recyclerView!!.adapter = adapter
         recyclerView!!.layoutManager = LinearLayoutManager(this)
-        examViewModel.allWords.observe(this) { exam ->
+        examViewModel.loadByMatiere(id).observe(this) { exams ->
             // Update the cached copy of the words in the adapter.
-            exam.let { adapter!!.submitList(it) }
+            exams.let { adapter!!.submitList(it) }
         }
         addButton= findViewById(R.id.button)
         addButton!!.setOnClickListener {
@@ -74,6 +85,11 @@ class MatierePage : AppCompatActivity() {
 
             }
         }
+    }
+    fun initMatiere(id0: Int) {
+        var mat =  matieresViewModel.loadById(id0)
+        nameMatiere!!.text = mat.name
+        coef!!.text = mat.coef.toString()
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.Exam.AddExam">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:src="@drawable/background_add_new"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -42,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/min_height"
                     android:fontFamily="sans-serif-light"
-                    android:hint="@string/hint_prenom"
+                    android:hint="@string/hint_word_date"
                     android:inputType="date"
                     android:layout_margin="@dimen/big_padding"
                     android:textSize="18sp" />

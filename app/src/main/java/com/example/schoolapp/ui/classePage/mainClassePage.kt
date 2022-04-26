@@ -57,6 +57,7 @@ class MainClassePage : AppCompatActivity() {
         dateView!!.text = sdf.format(cal.getTime())
         date = sdf.format(cal.getTime())
     }
+    var student_name = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_classe_page)
@@ -71,7 +72,8 @@ class MainClassePage : AppCompatActivity() {
         dateView = findViewById(R.id.date)
         date =  LocalDateTime.now().format(formatter)
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            val modalBottomSheet = StudentBottomSheet()
+            student_name = student.student.name +" " +student.student.prenom
+            val modalBottomSheet = StudentBottomSheet(id, student_name)
             modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
         },
             StudentClasseAdapter.OnClickListener2 { student, status ->
@@ -143,7 +145,7 @@ class MainClassePage : AppCompatActivity() {
     }
     fun rebuildRecycle(id0: Int, date: String) {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            val modalBottomSheet = StudentBottomSheet()
+            val modalBottomSheet = StudentBottomSheet(id0, student_name)
             modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
 //            val intent = Intent(this, AddStudentPage::class.java)
 //            intent.putExtra("id", student.student.sid)

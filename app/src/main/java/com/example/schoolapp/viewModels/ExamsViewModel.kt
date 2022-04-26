@@ -1,10 +1,7 @@
 package com.example.schoolapp.viewModels
 
 import androidx.lifecycle.*
-import com.example.schoolapp.data.Classe
-import com.example.schoolapp.data.ClasseRepository
-import com.example.schoolapp.data.Examen
-import com.example.schoolapp.data.ExamenRepository
+import com.example.schoolapp.data.*
 import kotlinx.coroutines.launch
 
 class ExamsViewModel(private val repository: ExamenRepository) : ViewModel() {
@@ -19,6 +16,9 @@ class ExamsViewModel(private val repository: ExamenRepository) : ViewModel() {
     }
     fun update(examen: Examen) = viewModelScope.launch {
         repository.update(examen)
+    }
+    fun loadByMatiere(mid: Int) :LiveData<List<Examen>> {
+        return repository.loadByMatiere(mid)
     }
 
     fun examById(mid : Int): Examen {

@@ -17,6 +17,10 @@ class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
     fun searchNote(sid: Int, eid: Int, cid: Int): Note {
         return repository.search(sid, eid, cid)
     }
+    fun searchNoteByStudent(sid: Int): LiveData<List<Note>> {
+        return repository.searchByStudent(sid)
+    }
+
 }
 class NotesViewModelFactory(private val repository: NoteRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelExamen: Class<T>): T {
