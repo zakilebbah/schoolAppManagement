@@ -19,6 +19,10 @@ class AddExam : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_exam)
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        actionBar?.setDisplayHomeAsUpEnabled(true)
+        setTitle("Add Exam")
         id = intent.getIntExtra("eid", -1)
         nom = findViewById(R.id.nom)
         date = findViewById(R.id.date)
@@ -36,5 +40,9 @@ class AddExam : AppCompatActivity() {
         replyIntent.putExtra(AddStudentPage.EXTRA_REPLY, array0)
         setResult(Activity.RESULT_OK, replyIntent)
         finish()
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }
