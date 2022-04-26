@@ -30,6 +30,7 @@ class AddClassePage : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_classe_page)
         val actionBar = supportActionBar
+        setTitle("Add Classes")
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
         name = findViewById(R.id.name)
