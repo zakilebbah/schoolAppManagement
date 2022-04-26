@@ -10,6 +10,7 @@
     android:id="@+id/card"
     android:focusable="true"
     android:gravity="center"
+    app:cardCornerRadius="15dp"
    >
 
     <LinearLayout
