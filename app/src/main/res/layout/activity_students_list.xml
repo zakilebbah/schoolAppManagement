@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.classePage.StudentsList">
 
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,10 +17,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:layout_width="130dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_undraw_schedule_meeting_52nu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="80dp"
         tools:listitem="@layout/card_view_design"
         android:padding="@dimen/big_padding"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -29,6 +37,8 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
+        android:src="@drawable/ic_plus_student"
+        app:maxImageSize="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
@@ -36,6 +46,6 @@
         android:layout_margin="16dp"
         android:layout_gravity="end|bottom"
         android:contentDescription="@string/add_student"
-        android:src="@drawable/ic_baseline_add_24"/>
+      />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
