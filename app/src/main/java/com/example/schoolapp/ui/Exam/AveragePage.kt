@@ -1,6 +1,7 @@
 package com.example.schoolapp.ui.Exam
 
 import android.graphics.Color
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -14,6 +15,7 @@ import com.example.schoolapp.data.Note
 import com.example.schoolapp.viewModels.*
 import java.util.HashMap
 import android.widget.LinearLayout.LayoutParams
+import androidx.core.view.marginTop
 import java.math.BigDecimal
 import java.math.RoundingMode
 
@@ -44,6 +46,7 @@ class AveragePage : AppCompatActivity() {
         name = findViewById(R.id.name)
         name!!.text = student_Name
         linear2 = findViewById(R.id.linear2)
+
         notesViewModel.searchNoteByStudent(sid).observe(this) { notes ->
             average(notes!!)
         }
@@ -122,13 +125,16 @@ class AveragePage : AppCompatActivity() {
         linear.setOrientation(LinearLayout.VERTICAL)
         var text = TextView(this)
         text.text = map["name"]
+        text.setTypeface(text.getTypeface(), Typeface.BOLD);
         text.setTextSize(20F)
         linear.addView(text)
         text = TextView(this)
         text.text = "Coef: " + map["coef"]
+        text.setTypeface(text.getTypeface(), Typeface.ITALIC);
         linear.addView(text)
         text = TextView(this)
         text.text = "Moy: " + map["moy"]
+        text.setTypeface(text.getTypeface(), Typeface.ITALIC);
         linear.addView(text)
         return  linear
     }
