@@ -14,17 +14,23 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
 import com.example.schoolapp.adapters.StudentClasseAdapter
 import com.example.schoolapp.data.*
+import com.example.schoolapp.ui.Exam.AveragePage
 import com.example.schoolapp.ui.MatieresList.MatiereListe
 import com.example.schoolapp.ui.addClasse.AddClassePage
 import com.example.schoolapp.ui.addStudent.AddStudentPage
+import com.example.schoolapp.ui.studentsList.StudentsViewModel
+import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import com.example.schoolapp.viewModels.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -43,12 +49,25 @@ class MainClassePage : AppCompatActivity() {
     private val classeViewModel: ClasseViewModel by viewModels {
         WordViewModelFactory((application as MainApp).repositoryClasse)
     }
+    private val notesViewModel: NotesViewModel by viewModels {
+        NotesViewModelFactory((application as MainApp).repositoryNote)
+    }
+    private val matiereViewModel: MatieresViewModel by viewModels {
+        MatiereViewModelFactory((application as MainApp).repositoryMatier)
+    }
+    private val examsViewModel: ExamsViewModel by viewModels {
+        ExamsViewModelFactory((application as MainApp).repositoryExamen)
+    }
+    private val studentsViewModel: StudentsViewModel by viewModels {
+        StudentsViewModelFactory((application as MainApp).repositoryStudent)
+    }
     private var dateView: TextView? = null
     private var recyclerView: RecyclerView? = null
     private var nameClasse : TextView? = null
     private var gradeClass : TextView? = null
     private var nbrEtudiant : TextView? = null
     private var date: String = ""
+    var id = -1
     var cal = Calendar.getInstance()
     private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
     private fun updateDateInView() {
@@ -65,16 +84,17 @@ class MainClassePage : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
         setTitle("Classe")
-        var id: Int = intent.getIntExtra("id", -1)
+        id = intent.getIntExtra("id", -1)
         nameClasse= findViewById(R.id.nameClass)
         gradeClass = findViewById(R.id.gradeClass)
         recyclerView = findViewById(R.id.recyclerview)
         dateView = findViewById(R.id.date)
         date =  LocalDateTime.now().format(formatter)
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            student_name = student.student.name +" " +student.student.prenom
-            val modalBottomSheet = StudentBottomSheet(id, student_name)
-            modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
+            var intent = Intent(this, AveragePage::class.java)
+            intent.putExtra("sid", student.student.sid)
+            intent.putExtra("student_name", student.student.name + " " + student.student.prenom)
+            startActivity(intent)
         },
             StudentClasseAdapter.OnClickListener2 { student, status ->
                 studentAttendanceClick(student, status)}, date)
@@ -109,17 +129,28 @@ class MainClassePage : AppCompatActivity() {
             intent.putExtra("cid",id)
             startActivityForResult(intent, classeActivityRequestCode)
         }
-        classeStudentsViewModel.allStudents(id).observe(this) { classeStudents ->
-            nbrEtudiant = findViewById(R.id.nbretudiant)
-            nbrEtudiant?.text = classeStudents.size.toString()
-            for (i in classeStudents.indices) {
-                var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
-                    classeStudents[i]!!.classRoom_Student.class_room_id)
-                if (attendance != null) {
-                    classeStudents[i]!!.student.attendance = attendance.status
+        notesViewModel.allNotes.observe(this) {notes ->
+            classeStudentsViewModel.allStudents(id).observe(this) { classeStudents ->
+                nbrEtudiant = findViewById(R.id.nbretudiant)
+                nbrEtudiant?.text = classeStudents.size.toString()
+                for (i in classeStudents.indices) {
+                    var nots00 = notes.filter { note -> note.id_student ==  classeStudents[i].student.sid}
+//                    var notes00 = notesViewModel.searchNoteByStudentList(classeStudents[i].student.sid)
+                    if (nots00.size > 0) {
+                        classeStudents[i].student.note =  BigDecimal(average(nots00!!)).setScale(2, RoundingMode.HALF_EVEN).toDouble()
+                    }
                 }
+
+                for (i in classeStudents.indices) {
+                    var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
+                        classeStudents[i]!!.classRoom_Student.class_room_id)
+                    if (attendance != null) {
+                        classeStudents[i]!!.student.attendance = attendance.status
+                    }
+                }
+                classeStudents.let { adapter.submitList(classeStudents) }
             }
-            classeStudents.let { adapter.submitList(classeStudents) }
+
         }
 
         classeViewModel.classById(id).observe(this) { classe ->
@@ -133,8 +164,8 @@ class MainClassePage : AppCompatActivity() {
 
         fab.setOnClickListener {
 
-            val intent = Intent(this, StudentsList::class.java)
-            intent.putExtra("cid",id)
+            val intent = Intent(this, AddStudentPage::class.java)
+            intent.putExtra("id",-1)
             startActivityForResult(intent, classeActivityRequestCode)
         }
     }
@@ -145,11 +176,10 @@ class MainClassePage : AppCompatActivity() {
     }
     fun rebuildRecycle(id0: Int, date: String) {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-            val modalBottomSheet = StudentBottomSheet(id0, student_name)
-            modalBottomSheet.show(supportFragmentManager, StudentBottomSheet.TAG)
-//            val intent = Intent(this, AddStudentPage::class.java)
-//            intent.putExtra("id", student.student.sid)
-//            startActivityForResult(intent, classeActivityRequestCode)
+            var intent = Intent(this, AveragePage::class.java)
+            intent.putExtra("sid", student.student.sid)
+            intent.putExtra("student_name", student.student.name + " " + student.student.prenom)
+            startActivity(intent)
         },
             StudentClasseAdapter.OnClickListener2 { student, status ->
                 studentAttendanceClick(student, status)
@@ -171,41 +201,7 @@ class MainClassePage : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.classe_menu, menu)
-       /* val item = menu?.findItem(R.id.search_tool)
-        val searchview = item?.actionView as SearchView
-        var id0: Int = intent.getIntExtra("id", -1)
-        searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener{
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                TODO("Not yet implemented")
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                val name0 = newText!!.toLowerCase(Locale.getDefault())
-                if(newText.isNotEmpty())
-                {
-                    val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
-                        val intent = Intent(this@MainClassePage, AttendanceHistory::class.java)
-                        intent.putExtra("id", student.student.sid)
-                        startActivityForResult(intent, classeActivityRequestCode)},
-                        StudentClasseAdapter.OnClickListener2 { student, status ->
-                            studentAttendanceClick(student, status)}, date)
-                    recyclerView!!.adapter = adapter
-                    recyclerView!!.layoutManager = LinearLayoutManager(this@MainClassePage)
-                    classeStudentsViewModel.allStudents(id0).observe(this) { classeStudents ->
-                        classeStudents
-                        for (i in classeStudents.indices) {
-                            var attendance: Attendance = attendanceViewModel.searchByDate(date, classeStudents[i]!!.student.sid,
-                                classeStudents[i]!!.classRoom_Student.class_room_id)
-                            if (attendance != null) {
-                                classeStudents[i]!!.student.attendance = attendance.status
-                            }
-                        }
-                        classeStudents.let { adapter.submitList(classeStudents) }
-                    }
-                }
-                return false
-            }
-        }) */       return true
+      return true
     }
     fun studentAttendanceClick(student: StudentWithclass, status: Int) {
         var attendance: Attendance = attendanceViewModel.searchByDate(date, student!!.student.sid,
@@ -244,32 +240,62 @@ class MainClassePage : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, intentData)
 
         if (requestCode == classeActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            Log.d("TEST TEST", "FZEFZE GFZEFZE ")
-            intentData?.getIntegerArrayListExtra(StudentsList.EXTRA_REPLY)?.let { reply ->
-                if (reply[0] != null) {
-                    var classeWithStudent = ClassRoom_Student(reply[0], reply[1], reply[2], reply[3])
-                    Log.d("TEST TEST reply", reply[1].toString())
-                    classeStudentsViewModel.insert(classeWithStudent)
-                }
 
-            }
-        } else if (requestCode == newClasseActivityRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.getStringArrayListExtra(AddClassePage.EXTRA_REPLY)?.let { reply ->
+            intentData?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
-                    var classe0 = Classe(0, reply[1], reply[2], reply[3], null)
-                    classeViewModel.insert(classe0)
-
-                }
-                else {
-
-                    var classe0 = Classe(reply[0].toInt(), reply[1], reply[2], reply[3], null)
-                    classeViewModel.update(classe0)
-
+                    var student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)
+                    var id00 = studentsViewModel.insertClassePage(student0)
+                    var classeWithStudent = ClassRoom_Student(0, id, id00.toInt(), 0)
+                    classeStudentsViewModel.insert(classeWithStudent)
                 }
 
             }
         }
 
+    }
+    fun average(notes: List<Note>): Double {
+        println(notes.size.toString())
+        val map = HashMap<String, MutableList<Double>>()
+        val mapAverage = HashMap<String, Double>()
+        val mapMatiere=  HashMap<String, HashMap<String, String>>()
+        var average00 = 0.0
+
+        for (i in notes.indices) {
+            val list00 : MutableList<Double> = mutableListOf()
+            var exam = examsViewModel.examById(notes[i].id_examen)
+            var mat =  matiereViewModel.loadById(exam.id_matiere)
+            var map11 =HashMap<String, String>()
+            map11["coef"] = mat.coef.toString()
+            map11["name"] = mat.name
+            map11["moy"]  = "0.0"
+            mapMatiere[mat.Mid.toString()] =  map11
+            if (map[mat.Mid.toString()] != null) {
+                map[mat.Mid.toString()]?.add(notes[i].note)
+            }
+            else {
+                list00.add(notes[i].note)
+                map[mat.Mid.toString()] = list00
+            }
+        }
+        var coefSum = 0.0
+        for ((key, value) in map) {
+            var sum = 0.0
+            for (i in value) {
+                sum += i
+            }
+            var examAverige= sum/value.size.toDouble()
+            mapMatiere[key]!!["moy"] = examAverige.toString()
+            mapAverage[key] = examAverige
+            average00 += examAverige*mapMatiere[key]!!["coef"]!!.toDouble()
+            coefSum +=mapMatiere[key]!!["coef"]!!.toDouble()
+        }
+        average00 /= coefSum
+        return  average00
+
+//        average!!.text = BigDecimal(average00).setScale(2, RoundingMode.HALF_EVEN).toString()
+//        println(average.toString())
+//        println(mapMatiere.toString())
+//        buildCard(mapMatiere)
     }
 }
 

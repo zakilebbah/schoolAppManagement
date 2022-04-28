@@ -49,6 +49,7 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
         private val wordItemView: TextView = itemView.findViewById(R.id.name)
         private val card: CardView = itemView.findViewById(R.id.card)
         private val button: ImageView = itemView.findViewById(R.id.person)
+        private val note: TextView = itemView.findViewById(R.id.note)
 
 
         fun bind(student: StudentWithclass?, onClickListener: OnClickListener, onClickListener2: OnClickListener2, date0: String) {
@@ -57,6 +58,9 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
 //                goToStudent(student.sid, view)
                 onClickListener.onClick(student)
 
+            }
+            if (student.student.note != null) {
+                note.text = "Moy: " + student.student.note.toString()
             }
              if (student.student.attendance != null && student.student.attendance == 0) {
               //  button.setBackgroundColor(Color.RED)
@@ -86,10 +90,10 @@ class StudentClasseAdapter(private val onClickListener: OnClickListener, private
         }
 
         companion object {
-            fun create(parent: ViewGroup): StudentClasseAdapter.StudentClasseViewHolder {
+            fun create(parent: ViewGroup): StudentClasseViewHolder {
                 val view: View = LayoutInflater.from(parent.context)
                     .inflate(R.layout.card_attendence_view, parent, false)
-                return StudentClasseAdapter.StudentClasseViewHolder(view)
+                return StudentClasseViewHolder(view)
             }
         }
         private fun goToStudent(id: Int, v: View){

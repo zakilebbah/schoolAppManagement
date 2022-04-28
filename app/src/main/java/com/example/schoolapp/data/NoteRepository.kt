@@ -22,6 +22,10 @@ class NoteRepository(private val noteDAO: NoteDAO) {
         return noteDAO.searchByStudent(sid)
     }
     @WorkerThread
+    fun searchByStudentList(sid: Int):  List<Note> {
+        return noteDAO.searchByStudentList(sid)
+    }
+    @WorkerThread
     fun update(note: Note) {
         noteDAO.update(note)
     }

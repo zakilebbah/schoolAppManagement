@@ -33,7 +33,7 @@ class AddStudentPage : AppCompatActivity() {
     private lateinit var adresse:EditText
     private lateinit var dateNaissance:EditText
     var id: Int = -1
-
+    var cid: Int = -1
 
     private lateinit var linear_layout: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +45,7 @@ class AddStudentPage : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
         id = intent.getIntExtra("id", -1)
+        cid = intent.getIntExtra("cid", -1)
         linear_layout = findViewById(R.id.formsList)
         nom = findViewById(R.id.nom)
         prenom = findViewById(R.id.prenom)
@@ -65,12 +66,13 @@ class AddStudentPage : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     fun  saveStudent() {
         val replyIntent = Intent()
-        if (TextUtils.isEmpty(nom.text) || TextUtils.isEmpty(prenom.text) || TextUtils.isEmpty(email.text) ) {
+        if (TextUtils.isEmpty(nom.text) || TextUtils.isEmpty(prenom.text)) {
             setResult(Activity.RESULT_CANCELED, replyIntent)
         } else {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
             val array0 =  ArrayList<String>()
+            println(id)
             array0.add(id.toString())
             array0.add(nom.text.toString())
             array0.add(prenom.text.toString())

@@ -4,20 +4,57 @@ import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.cardview.widget.CardView
 import com.example.schoolapp.MainApp
-import com.example.schoolapp.R
 import com.example.schoolapp.data.Note
 import com.example.schoolapp.viewModels.*
 import java.util.HashMap
 import android.widget.LinearLayout.LayoutParams
 import androidx.core.view.marginTop
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.RadarChart
+import com.github.mikephil.charting.components.AxisBase
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
+import com.github.mikephil.charting.utils.ColorTemplate
 import java.math.BigDecimal
 import java.math.RoundingMode
+import com.github.mikephil.charting.data.RadarData
+
+import com.github.mikephil.charting.interfaces.datasets.IRadarDataSet
+
+import com.github.mikephil.charting.data.RadarDataSet
+
+import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.components.Legend
+
+import com.github.mikephil.charting.components.YAxis
+
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+
+import com.github.mikephil.charting.animation.Easing
+
+import android.R
+
+import com.github.mikephil.charting.components.MarkerView
+
+
+
+
+
+
+data class Score(
+    val name:String,
+    val score: Int,
+)
 
 class AveragePage : AppCompatActivity() {
     private val notesViewModel: NotesViewModel by viewModels {
@@ -29,33 +66,37 @@ class AveragePage : AppCompatActivity() {
     private val examsViewModel: ExamsViewModel by viewModels {
         ExamsViewModelFactory((application as MainApp).repositoryExamen)
     }
-
+    private var scoreList = ArrayList<Score>()
+    var mapMatiere=  HashMap<String, HashMap<String, String>>()
+    private lateinit var chart: RadarChart
     private var average : TextView? = null
     private var name : TextView? = null
     private var linear2: LinearLayout? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_average_page)
+        setContentView(com.example.schoolapp.R.layout.activity_average_page)
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("Moyenne")
+        setTitle("Student Detail")
         var sid: Int = intent.getIntExtra("sid", -1)
         var student_Name: String? = intent.getStringExtra("student_name")
-        average = findViewById(R.id.average)
-        name = findViewById(R.id.name)
+        average = findViewById(com.example.schoolapp.R.id.average)
+        name = findViewById(com.example.schoolapp.R.id.name)
         name!!.text = student_Name
-        linear2 = findViewById(R.id.linear2)
-
+        linear2 = findViewById(com.example.schoolapp.R.id.linear2)
+        chart = findViewById(com.example.schoolapp.R.id.barChart)
         notesViewModel.searchNoteByStudent(sid).observe(this) { notes ->
             average(notes!!)
+            initBarChart()
         }
+
+
     }
     fun average(notes: List<Note>) {
         println(notes.size.toString())
         val map = HashMap<String, MutableList<Double>>()
         val mapAverage = HashMap<String, Double>()
-        val mapMatiere=  HashMap<String, HashMap<String, String>>()
         var average00 = 0.0
 
         for (i in notes.indices) {
@@ -90,8 +131,6 @@ class AveragePage : AppCompatActivity() {
         average00 /= coefSum
 
         average!!.text = BigDecimal(average00).setScale(2, RoundingMode.HALF_EVEN).toString()
-        println(average.toString())
-        println(mapMatiere.toString())
         buildCard(mapMatiere)
     }
     fun buildCard(map: HashMap<String, HashMap<String, String>>) {
@@ -113,8 +152,6 @@ class AveragePage : AppCompatActivity() {
             card_view.addView(buildCardView(value))
             linear2!!.addView(card_view)
         }
-
-
     }
     fun buildCardView(map: HashMap<String, String>): LinearLayout {
         val linear = LinearLayout(this)
@@ -138,8 +175,30 @@ class AveragePage : AppCompatActivity() {
         linear.addView(text)
         return  linear
     }
+    private fun initBarChart() {
+        var labels = arrayListOf<String>()
+        val entries: ArrayList<RadarEntry> = ArrayList()
+        for ((key, value) in mapMatiere) {
+            entries.add(RadarEntry(value["moy"]!!.toFloat()))
+            labels.add(value["name"]!!)
+        }
+
+        var radarDataSet: RadarDataSet = RadarDataSet(entries,"Entry 1")
+        radarDataSet.setColor(Color.RED)
+        radarDataSet.setLineWidth(2f);
+        radarDataSet.setValueTextColor(Color.RED);
+        radarDataSet.setValueTextSize(12f);
+
+        var radarData  = RadarData();
+        radarData.addDataSet(radarDataSet);
+//        radarData.addDataSet(radarDataSet2);
+        var xAxis = chart.getXAxis();
+        xAxis.setValueFormatter(IndexAxisValueFormatter(labels));
+        chart.setData(radarData);
+    }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
     }
 }
+

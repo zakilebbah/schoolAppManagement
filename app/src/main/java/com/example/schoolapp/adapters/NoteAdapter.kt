@@ -38,7 +38,7 @@ class NoteAdapter(private var listener: IList, private var eid: Int) : ListAdapt
         private val name: TextView = itemView.findViewById(R.id.name)
         private val note: EditText = itemView.findViewById(R.id.note)
         fun bind(studentWithclass: StudentWithclass?, listener: IList, eid: Int) {
-            name.text = studentWithclass!!.student.name
+            name.text = studentWithclass!!.student.name + " " + studentWithclass!!.student.prenom
             if (studentWithclass!!.student.note != null) {
                 note.setText(studentWithclass!!.student.note.toString())
             }

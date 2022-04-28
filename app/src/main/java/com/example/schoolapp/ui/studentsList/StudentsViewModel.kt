@@ -19,6 +19,9 @@ class StudentsViewModel(private val repository: StudentRepository) : ViewModel()
     fun insert(student: Student) = viewModelScope.launch {
         repository.insert(student)
     }
+    fun insertClassePage(student: Student) :Long {
+        return repository.insertClassePage(student)
+    }
     fun studentById(sid : Int): Student {
         return repository.getStudent(sid)
     }

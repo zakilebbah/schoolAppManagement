@@ -19,7 +19,7 @@ interface StudentDao {
     fun findName(name0: String): LiveData<List<Student>>
 
     @Insert
-    fun insertStudent(student: Student)
+    fun insertStudent(student: Student): Long
     @Update(entity = Student::class)
     fun update(student: Student)
     @Delete

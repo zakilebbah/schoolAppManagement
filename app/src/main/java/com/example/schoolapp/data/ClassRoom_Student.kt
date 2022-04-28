@@ -2,7 +2,7 @@ package com.example.schoolapp.data
 
 import androidx.room.*
 
-@Entity(tableName = "ClassRoom_Student")
+@Entity(tableName =     "ClassRoom_Student")
 data class ClassRoom_Student(
     @PrimaryKey(autoGenerate = true) val csid: Int = 0,
     @ColumnInfo(name = "class_room_id") val class_room_id: Int,

@@ -25,6 +25,8 @@ interface ClassRoom_Student_Dao {
     fun update(classRoom_Student: ClassRoom_Student)
     @Query("DELETE FROM ClassRoom_Student WHERE  class_room_id==:class_room_id0 and student_id==:student_id0")
     fun deleteByCidSid(class_room_id0: Int,student_id0: Int)
+    @Query("DELETE FROM ClassRoom_Student WHERE  csid==:id")
+    fun deleteById(id: Int)
     @Query("SELECT * FROM ClassRoom_Student where class_room_id == :id")
     fun getClassWithStudentsNumber(id: Int): List<StudentWithclass>
 }

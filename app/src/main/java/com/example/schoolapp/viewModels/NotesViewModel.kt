@@ -1,13 +1,11 @@
 package com.example.schoolapp.viewModels
 
 import androidx.lifecycle.*
-import com.example.schoolapp.data.Examen
-import com.example.schoolapp.data.ExamenRepository
-import com.example.schoolapp.data.Note
-import com.example.schoolapp.data.NoteRepository
+import com.example.schoolapp.data.*
 import kotlinx.coroutines.launch
 
 class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
+    val allNotes: LiveData<List<Note>> = repository.allNotes.asLiveData()
     fun insert(note: Note) = viewModelScope.launch {
         repository.insert(note)
     }
@@ -19,6 +17,9 @@ class NotesViewModel(private val repository: NoteRepository) : ViewModel() {
     }
     fun searchNoteByStudent(sid: Int): LiveData<List<Note>> {
         return repository.searchByStudent(sid)
+    }
+    fun searchNoteByStudentList(sid: Int): List<Note> {
+        return repository.searchByStudentList(sid)
     }
 
 }

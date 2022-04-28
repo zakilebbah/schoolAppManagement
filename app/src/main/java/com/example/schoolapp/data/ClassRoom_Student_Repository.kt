@@ -28,6 +28,7 @@ class ClassRoom_Student_Repository(private val StudentClasseDao: ClassRoom_Stude
     }
     @WorkerThread
     fun getClassWithStudentsNumber(cid: Int):Int  {
+        println(cid)
         return StudentClasseDao.getClassWithStudentsNumber(cid).size
     }
 

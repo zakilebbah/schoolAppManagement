@@ -15,6 +15,8 @@ interface NoteDAO {
     fun search(sid: Int, eid: Int, cid: Int): Note
     @Query("SELECT * FROM Note WHERE id_student ==:sid")
     fun searchByStudent(sid: Int): LiveData<List<Note>>
+    @Query("SELECT * FROM Note WHERE id_student ==:sid")
+    fun searchByStudentList(sid: Int): List<Note>
     @Insert
     fun insert(note: Note)
     @Update(entity = Note::class)

@@ -13,6 +13,9 @@ class StudentRepository (private val StudentDao: StudentDao){
     suspend fun insert(student: Student) {
         StudentDao.insertStudent(student)
     }
+     fun insertClassePage(student: Student): Long {
+        return StudentDao.insertStudent(student)
+    }
     @WorkerThread
     fun updateStudent(student: Student) {
         StudentDao.update(student)
