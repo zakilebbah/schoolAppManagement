@@ -6,26 +6,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
-import com.example.schoolapp.R
-import com.example.schoolapp.adapters.ClasseAdapter
 import com.example.schoolapp.adapters.MatiereAdapter
 import com.example.schoolapp.data.Matiere
-import com.example.schoolapp.data.Student
 import com.example.schoolapp.databinding.FragmentMatieresBinding
 import com.example.schoolapp.ui.addStudent.AddStudentPage
 import com.example.schoolapp.viewModels.MatiereViewModelFactory
 import com.example.schoolapp.viewModels.MatieresViewModel
-import com.example.schoolapp.viewModels.WordViewModelFactory
 
 class MatiersFragment : Fragment() {
 

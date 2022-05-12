@@ -8,23 +8,18 @@ import kotlinx.coroutines.flow.Flow
 interface ClassRoom_Student_Dao {
     @Query("SELECT * FROM ClassRoom_Student")
     fun getAll(): List<ClassRoom_Student>
-
     @Query("SELECT * FROM ClassRoom_Student WHERE class_room_id==:class_room_id0 and student_id==:student_id0")
     fun loadCidSid(class_room_id0: Int,student_id0: Int ): ClassRoom_Student
-
     @Insert
     fun insert(classRoom_Student: ClassRoom_Student)
-
     @Delete
     fun delete(classRoom_Student: ClassRoom_Student)
-
-    @Transaction
     @Query("SELECT * FROM ClassRoom_Student where class_room_id == :id")
     fun getClassWithStudents(id: Int): LiveData<List<StudentWithclass>>
     @Update
     fun update(classRoom_Student: ClassRoom_Student)
     @Query("DELETE FROM ClassRoom_Student WHERE  class_room_id==:class_room_id0 and student_id==:student_id0")
-    fun deleteByCidSid(class_room_id0: Int,student_id0: Int)
+    fun deleteByCid(class_room_id0: Int, student_id0: Int)
     @Query("DELETE FROM ClassRoom_Student WHERE  csid==:id")
     fun deleteById(id: Int)
     @Query("SELECT * FROM ClassRoom_Student where class_room_id == :id")

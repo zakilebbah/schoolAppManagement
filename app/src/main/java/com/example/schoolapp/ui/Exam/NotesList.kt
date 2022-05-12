@@ -1,6 +1,5 @@
 package com.example.schoolapp.ui.Exam
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +12,6 @@ import com.example.schoolapp.R
 import com.example.schoolapp.adapters.NoteAdapter
 import com.example.schoolapp.data.Note
 import com.example.schoolapp.viewModels.*
-import com.example.schoolapp.ui.Exam.IList
-import com.example.schoolapp.ui.classePage.MainClassePage
 
 interface IList {
     fun addToList(editTextValue: String?, cid: Int, sid: Int, eid: Int)
@@ -27,7 +24,7 @@ class NotesList : AppCompatActivity() {
         ExamsViewModelFactory((application as MainApp).repositoryExamen)
     }
     private val classeViewModel: ClasseViewModel by viewModels {
-        WordViewModelFactory((application as MainApp).repositoryClasse)
+        ClasseViewModelFactory((application as MainApp).repositoryClasse)
     }
     private val classeStudentsViewModel: ClasseStudentViewModel by viewModels {
         ClasseStudentModelFactory((application as MainApp).repositoryClasseStudent)
@@ -53,17 +50,21 @@ class NotesList : AppCompatActivity() {
             override fun addToList(editTextValue: String?, cid: Int, sid: Int, eid: Int) {
                 Log.d("editTextValue editTextValue", editTextValue.toString())
                 var note: Note = notesViewModel.searchNote(sid, eid, cid)
-                if (editTextValue != "") {
-                    if (note != null) {
-                        note.note = editTextValue!!.toDouble()
-                        notesViewModel.update(note)
-                    }
-                    else {
-                        var note0 = Note(0, sid, cid, eid, editTextValue!!.toDouble())
-                        notesViewModel.insert(note0)
-                    }
+                var value = ""
+                if (editTextValue == "") {
+                    value = "0"
                 }
-
+                else {
+                    value = editTextValue!!
+                }
+                if (note != null) {
+                    note.note = value.toDouble()
+                    notesViewModel.update(note)
+                }
+                else {
+                    var note0 = Note(0, sid, cid, eid, value.toDouble())
+                    notesViewModel.insert(note0)
+                }
             }
         }
         recyclerView = findViewById(R.id.recyclerview)

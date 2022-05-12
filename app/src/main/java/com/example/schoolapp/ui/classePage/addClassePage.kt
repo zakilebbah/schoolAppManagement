@@ -9,19 +9,16 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import androidx.activity.viewModels
-import androidx.fragment.app.viewModels
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
-import com.example.schoolapp.data.AppDatabase
-import com.example.schoolapp.data.Classe
 import com.example.schoolapp.viewModels.ClasseViewModel
-import com.example.schoolapp.viewModels.WordViewModelFactory
+import com.example.schoolapp.viewModels.ClasseViewModelFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
 class AddClassePage : AppCompatActivity() {
     private val classeViewModel: ClasseViewModel by viewModels {
-        WordViewModelFactory((application as MainApp).repositoryClasse)
+        ClasseViewModelFactory((application as MainApp).repositoryClasse)
     }
     var id: Int = -1
     private lateinit var name: EditText

@@ -6,11 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.schoolapp.databinding.ActivityMainBinding
-import com.example.schoolapp.viewModels.ClasseViewModel
-import com.example.schoolapp.viewModels.WordViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 

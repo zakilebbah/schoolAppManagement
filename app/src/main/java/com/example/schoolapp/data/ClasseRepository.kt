@@ -6,12 +6,7 @@ import androidx.lifecycle.LiveData
 import kotlinx.coroutines.flow.Flow
 
 
-/**
- * Repository module for handling data operations.
- *
- * Collecting from the Flows in [PlantDao] is main-safe.  Room supports Coroutines and moves the
- * query execution off of the main thread.
- */
+
 class ClasseRepository(private val classeDao: ClasseDao) {
 
     @WorkerThread
@@ -30,8 +25,5 @@ class ClasseRepository(private val classeDao: ClasseDao) {
     fun deleteClasse(cid: Int) {
         classeDao.deleteById(cid)
     }
-//    fun getPlant(plantId: String) = plantDao.getPlant(plantId)
-//
-//    fun getPlantsWithGrowZoneNumber(growZoneNumber: Int) =
-//        plantDao.getPlantsWithGrowZoneNumber(growZoneNumber)
 }
+

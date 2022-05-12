@@ -2,7 +2,6 @@ package com.example.schoolapp.data
 
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
-import kotlinx.coroutines.flow.Flow
 
 class ClassRoom_Student_Repository(private val StudentClasseDao: ClassRoom_Student_Dao) {
     @WorkerThread
@@ -20,7 +19,7 @@ class ClassRoom_Student_Repository(private val StudentClasseDao: ClassRoom_Stude
     }
     @WorkerThread
     suspend fun deleteByCidSid(class_room_id0: Int,student_id0: Int) {
-        StudentClasseDao.deleteByCidSid(class_room_id0, student_id0)
+        StudentClasseDao.deleteByCid(class_room_id0, student_id0)
     }
     @WorkerThread
     fun loadCidSid(cid: Int, sid: Int):ClassRoom_Student  {

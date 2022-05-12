@@ -11,10 +11,7 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.DatePicker
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
@@ -47,7 +44,7 @@ class MainClassePage : AppCompatActivity() {
         AttendanceModelFactory((application as MainApp).repositoryAttendance)
     }
     private val classeViewModel: ClasseViewModel by viewModels {
-        WordViewModelFactory((application as MainApp).repositoryClasse)
+        ClasseViewModelFactory((application as MainApp).repositoryClasse)
     }
     private val notesViewModel: NotesViewModel by viewModels {
         NotesViewModelFactory((application as MainApp).repositoryNote)
