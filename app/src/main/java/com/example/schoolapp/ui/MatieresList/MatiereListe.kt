@@ -1,7 +1,6 @@
 package com.example.schoolapp.ui.MatieresList
 
 import com.example.schoolapp.adapters.AddMatiereToClassAdapter
-import com.example.schoolapp.data.ClasseMatiere
 import com.example.schoolapp.data.Matiere
 import com.example.schoolapp.viewModels.*
 
@@ -11,21 +10,14 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
-import com.example.schoolapp.adapters.AddStudentToClasseAdapter
-import com.example.schoolapp.data.ClassRoom_Student
-import com.example.schoolapp.data.Student
 import com.example.schoolapp.ui.Exam.ExamsList
 import com.example.schoolapp.ui.addStudent.AddStudentPage
-import com.example.schoolapp.ui.classePage.StudentsList
-import com.example.schoolapp.ui.studentsList.StudentsViewModel
-import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MatiereListe() : AppCompatActivity() {

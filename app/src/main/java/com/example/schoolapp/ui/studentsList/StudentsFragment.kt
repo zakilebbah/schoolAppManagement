@@ -58,7 +58,6 @@ class StudentsFragment : Fragment() {
         recyclerView!!.adapter = adapter
         recyclerView!!.layoutManager = LinearLayoutManager(context)
         studentsViewModel.allWords.observe(this) { students ->
-            // Update the cached copy of the words in the adapter.
             students.let { adapter!!.submitList(it) }
         }
         searchText!!.addTextChangedListener(object : TextWatcher {

@@ -259,9 +259,11 @@ class MainClassePage : AppCompatActivity() {
 
         for (i in notes.indices) {
             val list00 : MutableList<Double> = mutableListOf()
-            var exam = examsViewModel.examById(notes[i].id_examen)
-            var mat =  matiereViewModel.loadById(exam.id_matiere)
+            var exam: Any
+            var mat: Any
             var map11 =HashMap<String, String>()
+            exam = examsViewModel.examById(notes[i].id_examen)
+            mat =  matiereViewModel.loadById(exam.id_matiere)
             map11["coef"] = mat.coef.toString()
             map11["name"] = mat.name
             map11["moy"]  = "0.0"

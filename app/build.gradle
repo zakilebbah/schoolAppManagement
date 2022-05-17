@@ -46,10 +46,7 @@ android {
 //}
 dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
-
     androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2') {
-        // Necessary if your app targets Marshmallow (since Espresso
-        // hasn't moved to Marshmallow yet)
         exclude group: 'com.android.support', module: 'support-annotations'
     }
     androidTestImplementation('com.android.support.test:runner:0.3') {
@@ -57,7 +54,13 @@ dependencies {
         // hasn't moved to Marshmallow yet)
         exclude group: 'com.android.support', module: 'support-annotations'
     }
+
+
+
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
+
     implementation 'com.applandeo:material-calendar-view:1.7.0'
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'androidx.core:core-ktx:1.7.0'
