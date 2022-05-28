@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">SchoolApp</string>
     <string name="title_home">Classes</string>
-    <string name="title_dashboard">Students</string>
+    <string name="title_dashboard">Étudiants</string>
     <string name="title_notifications">Page</string>
     <string name="add_word">Add Class Room</string>
     <string name="add_student">Add Student</string>
@@ -17,7 +17,7 @@
     <string name="hint_word">Classe...</string>
     <string name="hint_word_grade">Grade...</string>
     <string name="hint_word_date">Date...</string>
-    <string name="button_save">Save</string>
+    <string name="button_save">Enregistrer</string>
     <string name="empty_not_saved">Classe not saved because it is empty.</string>
     <string name="hint_nom">Nom</string>
     <string name="hint_prenom">Prenom</string>
@@ -30,12 +30,13 @@
     <string name="tab_text_2">Students</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="name">Name :</string>
+    <string name="name">Nom :</string>
     <string name="grade">Grade :</string>
-    <string name="n_students">N° students:</string>
+    <string name="n_students">Nb d\'étudiants:</string>
     <string name="coef">Coef</string>
-    <string name="course">Course</string>
+    <string name="course">Matiers</string>
     <string name="attendence">Attendence</string>
+    <string name="classe">Classe</string>
 
     <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>

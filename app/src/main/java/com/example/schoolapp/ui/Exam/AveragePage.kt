@@ -78,7 +78,7 @@ class AveragePage : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("Student Detail")
+        setTitle("Détail étudiant")
         var sid: Int = intent.getIntExtra("sid", -1)
         var student_Name: String? = intent.getStringExtra("student_name")
         average = findViewById(com.example.schoolapp.R.id.average)
@@ -87,8 +87,11 @@ class AveragePage : AppCompatActivity() {
         linear2 = findViewById(com.example.schoolapp.R.id.linear2)
         chart = findViewById(com.example.schoolapp.R.id.barChart)
         notesViewModel.searchNoteByStudent(sid).observe(this) { notes ->
-            average(notes!!)
-            initBarChart()
+            if (notes.size > 0) {
+                average(notes!!)
+                initBarChart()
+            }
+
         }
 
 
@@ -194,6 +197,8 @@ class AveragePage : AppCompatActivity() {
 //        radarData.addDataSet(radarDataSet2);
         var xAxis = chart.getXAxis();
         xAxis.setValueFormatter(IndexAxisValueFormatter(labels));
+        chart.description.isEnabled = false
+
         chart.setData(radarData);
     }
     override fun onSupportNavigateUp(): Boolean {

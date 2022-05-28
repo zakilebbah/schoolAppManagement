@@ -34,13 +34,12 @@ class AddStudentPage : AppCompatActivity() {
     private lateinit var dateNaissance:EditText
     var id: Int = -1
     var cid: Int = -1
-
     private lateinit var linear_layout: LinearLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddStudentPageBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setTitle("Student details")
+        setTitle("Détails étudiant")
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
@@ -72,7 +71,6 @@ class AddStudentPage : AppCompatActivity() {
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
             val array0 =  ArrayList<String>()
-            println(id)
             array0.add(id.toString())
             array0.add(nom.text.toString())
             array0.add(prenom.text.toString())
@@ -81,6 +79,7 @@ class AddStudentPage : AppCompatActivity() {
             array0.add(adresse.text.toString())
             array0.add(dateNaissance.text.toString())
             array0.add(currentDate.toString())
+            array0.add(cid.toString())
             replyIntent.putExtra(EXTRA_REPLY, array0)
             setResult(Activity.RESULT_OK, replyIntent)
         }
@@ -100,8 +99,6 @@ class AddStudentPage : AppCompatActivity() {
             tel.setText(student.tel.toString())
             adresse.setText(student.adresse.toString())
             dateNaissance.setText(student.DateNaissance.toString())
-
-
         }
     }
 }

@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SchoolApp">
         <activity
+            android:name=".ui.addStudent.ClassesListForStudent"
+            android:exported="false" />
+        <activity
             android:name=".ui.Exam.AveragePage"
             android:exported="false" />
         <activity

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -21,9 +22,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.adapters.StudentAdapter
+import com.example.schoolapp.data.ClassRoom_Student
 import com.example.schoolapp.data.Student
 import com.example.schoolapp.databinding.FragmentStudentsBinding
 import com.example.schoolapp.ui.addStudent.AddStudentPage
+import com.example.schoolapp.ui.addStudent.ClassesListForStudent
+import com.example.schoolapp.viewModels.ClasseStudentModelFactory
+import com.example.schoolapp.viewModels.ClasseStudentViewModel
 
 
 class StudentsFragment : Fragment() {
@@ -33,9 +38,9 @@ class StudentsFragment : Fragment() {
     private val studentsViewModel: StudentsViewModel by viewModels {
         StudentsViewModelFactory((activity?.application as MainApp).repositoryStudent)
     }
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-
+    private val classeStudentsViewModel: ClasseStudentViewModel by viewModels {
+        ClasseStudentModelFactory((activity?.application as MainApp).repositoryClasseStudent)
+    }
     private val binding get() = _binding!!
     private var searchText : EditText? = null
     private var recyclerView: RecyclerView? = null
@@ -76,7 +81,7 @@ class StudentsFragment : Fragment() {
         })
         val fab =binding.fab
         fab.setOnClickListener {
-            val intent = Intent(context, AddStudentPage::class.java)
+            val intent = Intent(context, ClassesListForStudent::class.java)
             resultLauncher.launch(intent)
         }
         return root
@@ -100,8 +105,10 @@ class StudentsFragment : Fragment() {
             val data: Intent? = result.data
             data?.getStringArrayListExtra(AddStudentPage.EXTRA_REPLY)?.let { reply ->
                 if (reply[0].toInt() == -1) {
-                    val student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)
-                    studentsViewModel.insert(student0)
+                    var student0 = Student( 0, reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)
+                    var id00 = studentsViewModel.insertClassePage(student0)
+                    var classeWithStudent = ClassRoom_Student(0, reply[8].toInt(), id00.toInt(), 0)
+                    classeStudentsViewModel.insert(classeWithStudent)
                 }
                 else {
                     val student0 = Student( reply[0].toInt(), reply[1], reply[2], reply[3], reply[4], reply[5], reply[6], reply[7], null, null)

@@ -22,7 +22,7 @@ class AddExam : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("Add Exam")
+        setTitle("Ajouter un examen")
         id = intent.getIntExtra("eid", -1)
         nom = findViewById(R.id.nom)
         date = findViewById(R.id.date)

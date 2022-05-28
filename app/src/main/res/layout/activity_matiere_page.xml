@@ -101,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:text="Add Exam"
+        android:text="Ajouter un examen"
         android:backgroundTint="#32A6EF"
         android:textAllCaps="false"
         android:layout_marginBottom="20dp"

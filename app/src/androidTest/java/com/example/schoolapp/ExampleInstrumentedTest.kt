@@ -52,20 +52,20 @@ class ExampleInstrumentedTest {
     public val mActivityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
     @Test
     fun useAppContext() {
-//        onView(withId(R.id.fab)).perform(click())
-//        onView(withId(R.id.name)).perform(typeText("classe TEST"))
-//        onView(withId(R.id.grade)).perform(typeText("classe GRADE"))
-//        onView(withId(R.id.button_save)).perform(click())
-//        onView(first(withText("classe TEST"))).check(matches(isDisplayed()))
-//        onView(first(withText("classe TEST"))).perform(click())
-//        for (i in 1..3) {
-//            onView(withId(R.id.fab)).perform(click())
-//            onView(withId(R.id.nom)).perform(typeText("Nom" + i.toString()))
-//            onView(withId(R.id.prenom)).perform(typeText("Prenom"+ i.toString()))
-//            onView(isRoot()).perform(ViewActions.closeSoftKeyboard())
-//            onView(withId(R.id.button_save)).perform(click())
-//        }
-//        onView(isRoot()).perform(ViewActions.pressBack())
+        onView(withId(R.id.fab)).perform(click())
+        onView(withId(R.id.name)).perform(typeText("classe TEST"))
+        onView(withId(R.id.grade)).perform(typeText("classe GRADE"))
+        onView(withId(R.id.button_save)).perform(click())
+        onView(first(withText("classe TEST"))).check(matches(isDisplayed()))
+        onView(first(withText("classe TEST"))).perform(click())
+        for (i in 1..3) {
+            onView(withId(R.id.fab)).perform(click())
+            onView(withId(R.id.nom)).perform(typeText("Nom" + i.toString()))
+            onView(withId(R.id.prenom)).perform(typeText("Prenom"+ i.toString()))
+            onView(isRoot()).perform(ViewActions.closeSoftKeyboard())
+            onView(withId(R.id.button_save)).perform(click())
+        }
+        onView(isRoot()).perform(ViewActions.pressBack())
 
         onView(withId(R.id.navigation_notifications)).perform(click())
         onView(withId(R.id.fab)).perform(click())
