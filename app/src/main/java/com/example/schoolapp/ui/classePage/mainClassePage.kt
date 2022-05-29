@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.schoolapp.MainApp
 import com.example.schoolapp.R
+import com.example.schoolapp.Utils
 import com.example.schoolapp.adapters.StudentClasseAdapter
 import com.example.schoolapp.data.*
 import com.example.schoolapp.ui.Exam.AveragePage
@@ -34,6 +35,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class MainClassePage : AppCompatActivity() {
+    private val utils: Utils = Utils()
+
     private val classeActivityRequestCode = 2
     private val newClasseActivityRequestCode = 1
     private val deleteClasseActivityRequestCode = -1
@@ -251,51 +254,69 @@ class MainClassePage : AppCompatActivity() {
 
     }
     fun average(notes: List<Note>): Double {
-        println(notes.size.toString())
-        val map = HashMap<String, MutableList<Double>>()
-        val mapAverage = HashMap<String, Double>()
-        val mapMatiere=  HashMap<String, HashMap<String, String>>()
-        var average00 = 0.0
-
+        val values = HashMap<String, HashMap<String, String>>()
         for (i in notes.indices) {
-            val list00 : MutableList<Double> = mutableListOf()
-            var exam: Any
-            var mat: Any
-            var map11 =HashMap<String, String>()
-            exam = examsViewModel.examById(notes[i].id_examen)
-            mat =  matiereViewModel.loadById(exam.id_matiere)
-            map11["coef"] = mat.coef.toString()
-            map11["name"] = mat.name
-            map11["moy"]  = "0.0"
-            mapMatiere[mat.Mid.toString()] =  map11
-            if (map[mat.Mid.toString()] != null) {
-                map[mat.Mid.toString()]?.add(notes[i].note)
+            var exam = examsViewModel.examById(notes[i].id_examen)
+            var mat =  matiereViewModel.loadById(exam.id_matiere)
+            if (!values.containsKey(exam.Eid.toString())) {
+                var val00 = HashMap<String, String>()
+                val00["coef"] = mat.coef.toString()
+                val00["name"] = mat.name
+                val00["Mid"] = mat.Mid.toString()
+                val00["moy"]  = "0.0"
+                values[exam.Eid.toString()] = val00
             }
-            else {
-                list00.add(notes[i].note)
-                map[mat.Mid.toString()] = list00
-            }
+
         }
-        var coefSum = 0.0
-        for ((key, value) in map) {
-            var sum = 0.0
-            for (i in value) {
-                sum += i
-            }
-            var examAverige= sum/value.size.toDouble()
-            mapMatiere[key]!!["moy"] = examAverige.toString()
-            mapAverage[key] = examAverige
-            average00 += examAverige*mapMatiere[key]!!["coef"]!!.toDouble()
-            coefSum +=mapMatiere[key]!!["coef"]!!.toDouble()
-        }
-        average00 /= coefSum
-        return  average00
+        utils.calc_average(notes, values)
+        return utils.average.toDouble()
+    }
+//    fun average(notes: List<Note>): Double {
+//        println(notes.size.toString())
+//        val map = HashMap<String, MutableList<Double>>()
+//        val mapAverage = HashMap<String, Double>()
+//        val mapMatiere=  HashMap<String, HashMap<String, String>>()
+//        var average00 = 0.0
+//
+//        for (i in notes.indices) {
+//            val list00 : MutableList<Double> = mutableListOf()
+//            var exam: Any
+//            var mat: Any
+//            var map11 =HashMap<String, String>()
+//            exam = examsViewModel.examById(notes[i].id_examen)
+//            mat =  matiereViewModel.loadById(exam.id_matiere)
+//            map11["coef"] = mat.coef.toString()
+//            map11["name"] = mat.name
+//            map11["moy"]  = "0.0"
+//            mapMatiere[mat.Mid.toString()] =  map11
+//            if (map[mat.Mid.toString()] != null) {
+//                map[mat.Mid.toString()]?.add(notes[i].note)
+//            }
+//            else {
+//                list00.add(notes[i].note)
+//                map[mat.Mid.toString()] = list00
+//            }
+//        }
+//        var coefSum = 0.0
+//        for ((key, value) in map) {
+//            var sum = 0.0
+//            for (i in value) {
+//                sum += i
+//            }
+//            var examAverige= sum/value.size.toDouble()
+//            mapMatiere[key]!!["moy"] = examAverige.toString()
+//            mapAverage[key] = examAverige
+//            average00 += examAverige*mapMatiere[key]!!["coef"]!!.toDouble()
+//            coefSum +=mapMatiere[key]!!["coef"]!!.toDouble()
+//        }
+//        average00 /= coefSum
+//        return  average00
 
 //        average!!.text = BigDecimal(average00).setScale(2, RoundingMode.HALF_EVEN).toString()
 //        println(average.toString())
 //        println(mapMatiere.toString())
 //        buildCard(mapMatiere)
-    }
+//    }
 }
 
 
