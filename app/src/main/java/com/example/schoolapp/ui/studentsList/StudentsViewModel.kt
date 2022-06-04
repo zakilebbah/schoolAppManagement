@@ -28,9 +28,13 @@ class StudentsViewModel(private val repository: StudentRepository) : ViewModel()
     fun update(student: Student) = viewModelScope.launch {
         repository.updateStudent(student)
     }
+    fun delete(sid: Int) = viewModelScope.launch {
+        repository.delete(sid)
+    }
     fun search(name: String): LiveData<List<Student>> {
         return repository.searchStudent(name)
     }
+
 }
 class StudentsViewModelFactory(private val repository: StudentRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

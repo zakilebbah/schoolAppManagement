@@ -13,6 +13,10 @@ class StudentRepository (private val StudentDao: StudentDao){
     suspend fun insert(student: Student) {
         StudentDao.insertStudent(student)
     }
+    @WorkerThread
+    suspend fun delete(sid: Int) {
+        StudentDao.deleteById(sid)
+    }
      fun insertClassePage(student: Student): Long {
         return StudentDao.insertStudent(student)
     }

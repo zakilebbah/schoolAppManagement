@@ -43,7 +43,14 @@ import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.animation.Easing
 
 import android.R
+import android.content.Intent
+import android.view.Menu
+import android.view.MenuItem
+import androidx.fragment.app.viewModels
 import com.example.schoolapp.Utils
+import com.example.schoolapp.ui.addClasse.AddClassePage
+import com.example.schoolapp.ui.studentsList.StudentsViewModel
+import com.example.schoolapp.ui.studentsList.StudentsViewModelFactory
 
 import com.github.mikephil.charting.components.MarkerView
 
@@ -68,12 +75,20 @@ class AveragePage : AppCompatActivity() {
     private val examsViewModel: ExamsViewModel by viewModels {
         ExamsViewModelFactory((application as MainApp).repositoryExamen)
     }
+    private val studentsViewModel: StudentsViewModel by viewModels {
+        StudentsViewModelFactory((application as MainApp).repositoryStudent)
+    }
+    private val classeStudentsViewModel: ClasseStudentViewModel by viewModels {
+        ClasseStudentModelFactory((application as MainApp).repositoryClasseStudent)
+    }
     private var scoreList = ArrayList<Score>()
     var mapMatiere=  HashMap<String, HashMap<String, String>>()
     private lateinit var chart: RadarChart
     private var average : TextView? = null
     private var name : TextView? = null
     private var linear2: LinearLayout? = null
+    private var sid = 0
+    private var cid = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(com.example.schoolapp.R.layout.activity_average_page)
@@ -81,7 +96,8 @@ class AveragePage : AppCompatActivity() {
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
         setTitle("Détail étudiant")
-        var sid: Int = intent.getIntExtra("sid", -1)
+        sid= intent.getIntExtra("sid", -1)
+        cid= intent.getIntExtra("cid", -1)
         var student_Name: String? = intent.getStringExtra("student_name")
         average = findViewById(com.example.schoolapp.R.id.average)
         name = findViewById(com.example.schoolapp.R.id.name)
@@ -123,7 +139,6 @@ class AveragePage : AppCompatActivity() {
     fun buildCard(map: HashMap<String, HashMap<String, String>>) {
         for ((key, value) in map) {
             val card_view = CardView(this)
-
             // Initialize a new LayoutParams instance, CardView width and height
             val layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT, // CardView width
@@ -169,7 +184,6 @@ class AveragePage : AppCompatActivity() {
             entries.add(RadarEntry(value["moy"]!!.toFloat()))
             labels.add(value["name"]!!)
         }
-
         var radarDataSet: RadarDataSet = RadarDataSet(entries,"Entry 1")
         radarDataSet.setColor(Color.RED)
         radarDataSet.setLineWidth(2f);
@@ -178,12 +192,29 @@ class AveragePage : AppCompatActivity() {
 
         var radarData  = RadarData();
         radarData.addDataSet(radarDataSet);
-//        radarData.addDataSet(radarDataSet2);
         var xAxis = chart.getXAxis();
         xAxis.setValueFormatter(IndexAxisValueFormatter(labels));
         chart.description.isEnabled = false
-
         chart.setData(radarData);
+    }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        val id = item.getItemId()
+        var id0: Int = intent.getIntExtra("id", -1)
+
+        if (id == com.example.schoolapp.R.id.action_three) {
+            classeStudentsViewModel.deleteByCidSid(cid, sid)
+            studentsViewModel.delete(sid)
+            finish()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+
+    }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(com.example.schoolapp.R.menu.student, menu)
+        return true
     }
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()

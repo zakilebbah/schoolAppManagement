@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,10 +31,13 @@ class ExamsList : AppCompatActivity() {
         val actionBar = supportActionBar
         actionBar?.setDisplayHomeAsUpEnabled(true)
         actionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("Choose an exam")
         val recyclerView: RecyclerView = findViewById(R.id.recyclerview)
+        val MatierName: TextView = findViewById(R.id.name)
         var cid: Int = intent.getIntExtra("cid", -1)
         var mid: Int = intent.getIntExtra("mid", -1)
+        var name: String? = intent.getStringExtra("name")
+        MatierName.text = "Classe: " + name!!
+        setTitle("Choisissez un examen")
         val adapter = ExamAdapter(ExamAdapter.OnClickListener { examen ->
             val intent = Intent(this, NotesList::class.java)
             intent.putExtra("cid", cid)

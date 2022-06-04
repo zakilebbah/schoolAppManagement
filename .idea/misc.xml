@@ -94,9 +94,9 @@
         <entry key="app/src/main/res/layout/activity_average_page.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/activity_classe_page.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_classes_list_for_student.xml" value="0.17299898682877407" />
-        <entry key="app/src/main/res/layout/activity_exams_list.xml" value="0.17299898682877407" />
+        <entry key="app/src/main/res/layout/activity_exams_list.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
-        <entry key="app/src/main/res/layout/activity_main_classe_page.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_main_classe_page.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_matiere_list.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/layout/activity_matiere_page.xml" value="0.223731884057971" />
         <entry key="app/src/main/res/layout/activity_notes_list.xml" value="0.1" />
@@ -122,6 +122,7 @@
         <entry key="app/src/main/res/layout/student_model_sheet.xml" value="0.17299898682877407" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.22239583333333332" />
         <entry key="app/src/main/res/menu/classe_menu.xml" value="0.19791666666666666" />
+        <entry key="app/src/main/res/menu/student.xml" value="0.27239583333333334" />
       </map>
     </option>
   </component>

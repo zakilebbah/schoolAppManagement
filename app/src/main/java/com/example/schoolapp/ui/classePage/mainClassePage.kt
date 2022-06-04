@@ -93,6 +93,7 @@ class MainClassePage : AppCompatActivity() {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
             var intent = Intent(this, AveragePage::class.java)
             intent.putExtra("sid", student.student.sid)
+            intent.putExtra("cid", id)
             intent.putExtra("student_name", student.student.name + " " + student.student.prenom)
             startActivity(intent)
         },
@@ -178,6 +179,7 @@ class MainClassePage : AppCompatActivity() {
         val adapter = StudentClasseAdapter(StudentClasseAdapter.OnClickListener { student ->
             var intent = Intent(this, AveragePage::class.java)
             intent.putExtra("sid", student.student.sid)
+            intent.putExtra("cid", id)
             intent.putExtra("student_name", student.student.name + " " + student.student.prenom)
             startActivity(intent)
         },

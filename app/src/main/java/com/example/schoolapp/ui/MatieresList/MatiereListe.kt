@@ -39,10 +39,11 @@ class MatiereListe() : AppCompatActivity() {
             val intent = Intent(this, ExamsList::class.java)
             intent.putExtra("cid", cid)
             intent.putExtra("mid", matiere.Mid)
+            intent.putExtra("name", matiere.name)
             startActivity(intent)
 
         }, cid)
-        setTitle("Choose a subject")
+        setTitle("Choisissez une matiere")
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
         matiereViewModel.allMatiers.observe(this) { classes ->
